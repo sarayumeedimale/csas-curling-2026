@@ -2,4 +2,4 @@
 
 **Team:** Sarayu & Armaan
 
-**Power Play Count:** 598
+**Power Play Count:** 598.
