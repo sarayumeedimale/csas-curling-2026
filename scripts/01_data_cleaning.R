@@ -61,8 +61,7 @@ ends_clean <- ends %>%
   group_by(match_id, TeamID) %>%
   arrange(EndID, .by_group = TRUE) %>%
   # Determine who "Should" have the hammer in this specific end
-  mutate(
-    hammer_owner_raw = case_when(
+  mutate(hammer_owner_raw = case_when(
       # SCENARIO A: First End; If LSFE matches the row's TeamID, they have it.
       EndID == 1 & LSFE == 1 ~ TeamID1,
       EndID == 1 & LSFE == 0 ~ TeamID2,
@@ -70,13 +69,9 @@ ends_clean <- ends %>%
       lag(Result, default=0) > 0 ~ TeamID_opp,
       lag(Result_opp, default=0) > 0 ~ TeamID,
      # Blank End (0-0)
-      TRUE ~ NA_real_)
-  ) %>%
+      TRUE ~ NA_real_)) %>%
   # If it was a blank end (NA), 'fill' copies value from row above to correctly keep the hammer with whoever had it last.
   fill(hammer_owner_raw, .direction = "down") %>%
-    mutate(
-      has_hammer = (TeamID == hammer_owner_raw),
-      ends_remaining = 8 - EndID
-    ) %>%
+    mutate(has_hammer = (TeamID == hammer_owner_raw),ends_remaining = 8 - EndID) %>%
     select(match_id, EndID, TeamID, has_hammer, ends_remaining)
 head(hammer_logic) # Tracks turn-by-turn hammer possession, (score -> lose hammer) & (blank ends -> keep hammer).
