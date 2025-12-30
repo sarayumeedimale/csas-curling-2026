@@ -90,11 +90,9 @@ master_data <- master_data %>%
 # [cite_start]2. Handle "Sentinel" Values in Stone Coordinates [cite: 167-168]
 # The sensor records 4095 or 0 when the stone is invalid/not thrown.
 # We must turn these into NA so they don't mess up our math.
+# Clean ALL stone coordinate columns at once
 master_data <- master_data %>%
-  mutate(
-    x = ifelse(x == 4095 | x == 0, NA, x),
-    y = ifelse(y == 4095 | y == 0, NA, y)
-  )
+  mutate(across(starts_with("stone_"), ~ ifelse(. == 4095 | . == 0, NA, .)))
 
 # [cite_start]3. Create the Power Play Subset [cite: 170-173]
 # We only care about ends where the PowerPlay flag is active.
@@ -106,4 +104,15 @@ pp_data <- master_data %>%
 write_rds(pp_data, "data/pp_master.rds")
 
 print(paste("Day 2A Complete: Power Play subset saved with", nrow(pp_data), "rows."))
+
+# Pick 5 random games to inspect
+set.seed(2026) # Keeps the "random" games the same every time
+random_match_ids <- sample(unique(pp_data$match_id), 5)
+
+# Show the hammer flow for these 5 games
+pp_data %>%
+  filter(match_id %in% random_match_ids) %>%
+  select(match_id, EndID, TeamID, Result, has_hammer, score_diff) %>%
+  arrange(match_id, EndID) %>%
+  print(n = 50)
 
