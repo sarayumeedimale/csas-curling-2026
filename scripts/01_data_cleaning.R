@@ -75,3 +75,35 @@ ends_clean <- ends %>%
     mutate(has_hammer = (TeamID == hammer_owner_raw),ends_remaining = 8 - EndID) %>%
     select(match_id, EndID, TeamID, has_hammer, ends_remaining)
 head(hammer_logic) # Tracks turn-by-turn hammer possession, (score -> lose hammer) & (blank ends -> keep hammer).
+
+
+# -----------------------------------------------------------------------------
+# DAY 2A (Armaan): Merge Sarayu's Work & Clean Data
+# -----------------------------------------------------------------------------
+
+# 1. Join Sarayu's calculations back to the Master Data
+# Right now, 'score_diff' and 'has_hammer' are in separate tables. We need to add them to master_data.
+master_data <- master_data %>%
+  left_join(game_state_final, by = c("match_id", "EndID", "TeamID")) %>%
+  left_join(hammer_logic, by = c("match_id", "EndID", "TeamID"))
+
+# [cite_start]2. Handle "Sentinel" Values in Stone Coordinates [cite: 167-168]
+# The sensor records 4095 or 0 when the stone is invalid/not thrown.
+# We must turn these into NA so they don't mess up our math.
+master_data <- master_data %>%
+  mutate(
+    x = ifelse(x == 4095 | x == 0, NA, x),
+    y = ifelse(y == 4095 | y == 0, NA, y)
+  )
+
+# [cite_start]3. Create the Power Play Subset [cite: 170-173]
+# We only care about ends where the PowerPlay flag is active.
+pp_data <- master_data %>%
+  filter(!is.na(PowerPlay))
+
+# 4. Save the clean data for the next phase
+# We save it as an .rds file because it keeps all our variable types safe.
+write_rds(pp_data, "data/pp_master.rds")
+
+print(paste("Day 2A Complete: Power Play subset saved with", nrow(pp_data), "rows."))
+
