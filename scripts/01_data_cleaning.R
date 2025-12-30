@@ -4,7 +4,6 @@ library(tidyverse)
 games <- read_csv("data/raw/Games.csv")
 ends <- read_csv("data/raw/Ends.csv")
 stones <- read_csv("data/raw/Stones.csv")
-View(ends)
 
 # Merge together 
 master_data <- games %>%
@@ -16,8 +15,9 @@ master_data <- master_data %>%
   mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_"),
          end_id = paste(match_id, EndID, sep = "_"))
 
-
+# -----------------------------------------------------------------------------
 # Day 2S: Game state variables calculated
+# -----------------------------------------------------------------------------
 
 # STEP 1: Calculate: game state at START of each end
   # temporary table from Ends data
@@ -116,3 +116,42 @@ pp_data %>%
   arrange(match_id, EndID) %>%
   print(n = 50)
 
+
+# -----------------------------------------------------------------------------
+# DAY 3S: Exploratory analysis of power plays
+# -----------------------------------------------------------------------------
+pp_master <- pp_data
+# 1. REMOVE ANOMALY (Match 0_10_1, End 7)
+pp_master_clean <- pp_master %>%
+  filter(has_hammer == TRUE)
+print(paste("Cleaned dataset size:", nrow(pp_master_clean), "stones"))
+
+# 2. PLOT 1: When do teams use power plays? (distribution by end)
+# We use distinct() to count Ends, not stones
+plot1 <- pp_master_clean %>%
+  distinct(match_id, EndID) %>%
+  ggplot(aes(x = factor(EndID))) +
+  geom_bar(fill = "#2c3e50") +
+  labs(title = "Power Play Usage by End",
+       subtitle = "Teams save the Power Play for the late game (Ends 6-8)",
+       x = "End Number", y = "Count of Power Plays") +
+  theme_minimal()
+print(plot1)
+
+# 3. PLOT 2: At what score differentials? (histogram)
+plot2 <- pp_master_clean %>%
+  distinct(match_id, EndID, score_diff) %>%
+  ggplot(aes(x = score_diff)) +
+  geom_histogram(binwidth = 1, fill = "#2c3e50", color = "white") +
+  scale_x_continuous(breaks = seq(-6, 6, 1)) +
+  labs(title = "Score Differential During Power Plays",
+       subtitle = "Negative = Team is Losing | Positive = Team is Winning",
+       x = "Score Diff (My Score - Opponent)", y = "Count") +
+  theme_minimal()
+print(plot2)
+
+# 4. How often do teams with hammer use PP? (should be 100%)
+print("Hammer Validation (After Clean):")
+pp_master_clean %>%
+  distinct(match_id, EndID, has_hammer) %>%
+  count(has_hammer)
