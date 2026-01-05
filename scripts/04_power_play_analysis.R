@@ -158,3 +158,36 @@ print(guard_usage)
 
 # 8. SAVE RESULTS ---------------------------------------------------------
 saveRDS(shot_strategy, "shot_strategy_summary.rds")
+
+# ==============================================================================
+# DAY 9S: EXECUTION QUALITY ANALYSIS (Sarayu)
+# Objective: Does shot execution (0-4 score) drop under high pressure?
+# ==============================================================================
+
+# 9. EXECUTION ANALYSIS ---------------------------------------------------
+# We continue using the 'pp_shots' dataframe created in Day 8A.
+# It contains the 'Points' column (raw execution score 0-4).
+
+# Calculate Mean Score and "Perfect Shot" % for each pressure level
+execution_summary <- pp_shots %>%
+  group_by(pressure_combined) %>%
+  summarize(
+    avg_score = mean(Points, na.rm = TRUE),
+    pct_perfect = mean(Points == 4, na.rm = TRUE),
+    sample_size = n()
+  ) %>%
+  arrange(pressure_combined)
+
+print("--- EXECUTION QUALITY (Avg Score 0-4) BY PRESSURE ---")
+print(execution_summary)
+
+# 10. STATISTICAL TEST (ANOVA) --------------------------------------------
+# We use ANOVA to see if the differences in means are statistically significant.
+# Null Hypothesis: Pressure has no effect on execution score.
+
+anova_result <- aov(Points ~ pressure_combined, data = pp_shots)
+print("--- ANOVA RESULTS: EXECUTION VS PRESSURE ---")
+print(summary(anova_result))
+
+# 11. SAVE RESULTS --------------------------------------------------------
+saveRDS(execution_summary, "execution_quality_summary.rds")
