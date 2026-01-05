@@ -84,3 +84,77 @@ print(t_test_result)
 # 4. SAVE RESULTS ---------------------------------------------------------
 # We'll save the summary table to look at later for the report
 saveRDS(scoring_summary, "scoring_summary_table.rds")
+
+
+# ==============================================================================
+# DAY 8A: SHOT SELECTION ANALYSIS (Armaan) - LOGIC FIX
+# Objective: Do teams play more conservatively (more guards) under pressure?
+# ==============================================================================
+
+# 5. PREPARE SHOT DATA ----------------------------------------------------
+stones <- read_csv("data/raw/Stones.csv", show_col_types = FALSE) %>%
+  mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
+  mutate(
+    match_id = as.character(match_id),
+    TeamID = as.character(TeamID),
+    EndID = as.numeric(EndID),
+    ShotID = as.numeric(ShotID) 
+  )
+
+pressure_tags <- pp_data %>%
+  select(match_id, EndID, TeamID, pressure_combined) %>%
+  distinct() %>%
+  mutate(
+    match_id = as.character(match_id),
+    TeamID = as.character(TeamID),
+    EndID = as.numeric(EndID)
+  )
+
+pp_shots <- stones %>%
+  inner_join(pressure_tags, by = c("match_id", "EndID", "TeamID"))
+
+# --- TRANSLATE TASK CODES ---
+pp_shots <- pp_shots %>%
+  mutate(shot_type_name = case_when(
+    Task == 0 ~ "Draw",
+    Task == 1 ~ "Front",
+    Task == 2 ~ "Guard",
+    Task == 3 ~ "Raise",
+    Task == 4 ~ "Wick",
+    Task == 5 ~ "Freeze",
+    Task == 6 ~ "Take-out",
+    Task == 7 ~ "Hit and Roll",
+    Task == 8 ~ "Clearing",
+    Task == 9 ~ "Double Take-out",
+    TRUE ~ "Other"
+  ))
+
+# 6. ANALYSIS: EARLY END STRATEGY (Shots 1-3) -----------------------------
+# FIX: Create a "shot_order" that resets to 1 for every End/Team combo
+shot_strategy <- pp_shots %>%
+  arrange(match_id, EndID, TeamID, ShotID) %>%  # Ensure strict time order
+  group_by(match_id, EndID, TeamID) %>%
+  mutate(shot_order = row_number()) %>%         # Number them 1, 2, 3, 4, 5...
+  ungroup() %>%
+  filter(shot_order <= 3) %>%                   # NOW filter for the first 3
+  
+  # Calculate percentages
+  group_by(pressure_combined, shot_type_name) %>%
+  summarize(n_shots = n(), .groups = "drop") %>%
+  group_by(pressure_combined) %>%
+  mutate(pct = n_shots / sum(n_shots)) %>%
+  arrange(pressure_combined, desc(pct))
+
+print("--- SHOT SELECTION (First 3 Stones) BY PRESSURE ---")
+print(shot_strategy)
+
+# 7. DRILL DOWN: GUARD USAGE ----------------------------------------------
+guard_usage <- shot_strategy %>%
+  filter(shot_type_name == "Guard") %>%
+  select(pressure_combined, shot_type_name, n_shots, pct)
+
+print("--- GUARD USAGE % UNDER PRESSURE ---")
+print(guard_usage)
+
+# 8. SAVE RESULTS ---------------------------------------------------------
+saveRDS(shot_strategy, "shot_strategy_summary.rds")
