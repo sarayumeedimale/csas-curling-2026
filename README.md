@@ -37,3 +37,21 @@ To establish a baseline for "expected performance," we trained a model to predic
 
 **Goodness of Fit**
 - Residual Deviance (5019) is significantly lower than Null Deviance (7219), indicating the model explains a large portion of the variance.
+
+## 📊 Key Findings (Preliminary)
+
+### 1. The "Do-or-Die" Strategy Shift (Day 8 Analysis)
+We analyzed the first 3 shots of an end to see if teams play more conservatively (throwing guards) when under pressure.
+* **The Trend:** It follows a "U-shape."
+    * **Low Pressure:** Teams experiment more (~5.4% Guards).
+    * **High Pressure:** Teams play "clean," avoiding clutter to minimize risks (~4.4% Guards).
+    * **Very High Pressure:** Teams suddenly switch to aggressive "junk" play, throwing **significantly more guards (~6.9%)**.
+* **Insight:** In desperate situations, teams try to clutter the house to force opponent errors, rather than playing it safe.
+
+### 2. The "Clutch" Factor: Execution Improves Under Pressure (Day 9 Analysis)
+We tested if shot execution (scored 0-4) drops due to nerves in high-stakes moments.
+* **Result:** Performance actually **improves** as pressure rises.
+    * **Low Pressure Avg Score:** 2.96 / 4.0
+    * **High Pressure Avg Score:** 3.13 / 4.0
+    * **Perfect Shots:** In "Very High" pressure scenarios, **58.5%** of shots are executed perfectly (4/4).
+* **Statistical Significance:** An ANOVA test confirmed this difference is significant ($p < 0.001$). Professional curlers lock in rather than choke when the game is on the line.
