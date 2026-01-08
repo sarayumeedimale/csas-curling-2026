@@ -55,3 +55,11 @@ We tested if shot execution (scored 0-4) drops due to nerves in high-stakes mome
     * **High Pressure Avg Score:** 3.13 / 4.0
     * **Perfect Shots:** In "Very High" pressure scenarios, **58.5%** of shots are executed perfectly (4/4).
 * **Statistical Significance:** An ANOVA test confirmed this difference is significant ($p < 0.001$). Professional curlers lock in rather than choke when the game is on the line.
+
+### 3. Strategy Shifts: The "Defensive Pivot" (Day 9A Analysis)
+We analyzed the specific sequence of the first 3 shots (e.g., "Draw-Draw-Guard") to see how strategies change.
+* **The Universal Standard:** "Draw-Draw-Draw" is the #1 most common opening across all pressure levels.
+* **The Pressure Shift:**
+    * **Low Pressure:** Teams experiment with aggression. The #2 strategy is **"Draw-Draw-Raise"**.
+    * **High/Very High Pressure:** Teams pivot to defense. The #2 strategy becomes **"Draw-Draw-Guard"**.
+* **Insight:** When pressure mounts, teams abandon aggressive "raise" attempts. If the first two draws aren't perfect, they immediately switch to a Guard on shot #3 to protect the house.

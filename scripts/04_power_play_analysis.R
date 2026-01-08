@@ -191,3 +191,53 @@ print(summary(anova_result))
 
 # 11. SAVE RESULTS --------------------------------------------------------
 saveRDS(execution_summary, "execution_quality_summary.rds")
+
+
+
+# ==============================================================================
+# DAY 9A: SHOT SEQUENCE ANALYSIS (Armaan) - FIXED
+# Objective: Identify common opening strategies (e.g., "Guard-Guard-Draw")
+# ==============================================================================
+
+# 12. CREATE SHOT SEQUENCES -----------------------------------------------
+# We collapse the first 3 shots of every end into a single text string
+shot_sequences <- pp_shots %>%
+  # --- FIX: RE-CALCULATE SHOT ORDER HERE ---
+  arrange(match_id, EndID, TeamID, ShotID) %>%
+  group_by(match_id, EndID, TeamID) %>%
+  mutate(shot_order = row_number()) %>%
+  ungroup() %>%
+  # -----------------------------------------
+filter(shot_order <= 3) %>%
+  group_by(match_id, EndID, TeamID, pressure_combined) %>%
+  summarize(
+    # Create the combo string (e.g. "Draw-Guard-Takeout")
+    sequence = paste(shot_type_name, collapse = "-"),
+    # Calculate how well they executed this sequence (Mean Points 0-4)
+    avg_execution = mean(Points, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 13. ANALYZE COMMON SEQUENCES --------------------------------------------
+# Count how often each sequence happens under different pressure
+sequence_stats <- shot_sequences %>%
+  group_by(pressure_combined, sequence) %>%
+  summarize(
+    frequency = n(),
+    success_rate = mean(avg_execution, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(pressure_combined, desc(frequency))
+
+# Print top 5 strategies for High Pressure vs Low Pressure
+print("--- TOP STRATEGIES: LOW PRESSURE ---")
+print(head(filter(sequence_stats, pressure_combined == "low"), 5))
+
+print("--- TOP STRATEGIES: HIGH PRESSURE ---")
+print(head(filter(sequence_stats, pressure_combined == "high"), 5))
+
+print("--- TOP STRATEGIES: VERY HIGH PRESSURE ---")
+print(head(filter(sequence_stats, pressure_combined == "very_high"), 5))
+
+# 14. SAVE RESULTS --------------------------------------------------------
+saveRDS(sequence_stats, "shot_sequences_summary.rds")
