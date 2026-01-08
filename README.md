@@ -63,3 +63,9 @@ We analyzed the specific sequence of the first 3 shots (e.g., "Draw-Draw-Guard")
     * **Low Pressure:** Teams experiment with aggression. The #2 strategy is **"Draw-Draw-Raise"**.
     * **High/Very High Pressure:** Teams pivot to defense. The #2 strategy becomes **"Draw-Draw-Guard"**.
 * **Insight:** When pressure mounts, teams abandon aggressive "raise" attempts. If the first two draws aren't perfect, they immediately switch to a Guard on shot #3 to protect the house.
+
+### 4. Synthesis: The "Anxious Sniper" Phenomenon (Day 10S)
+By combining all analyses, we found a distinct profile for Olympic-level curlers under pressure:
+* **Execution:** They are "Snipers." Shot quality *improves* significantly (58% perfect shots in Very High pressure vs 54% in Low).
+* **Strategy:** They are "Anxious." Despite shooting better, they play more fearfully, switching to defensive Guards ("Draw-Draw-Guard") rather than trusting their offense.
+* **Conclusion:** Teams don't lose because they miss shots; they lose because they retreat into defensive shells when they should be attacking.
