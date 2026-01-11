@@ -273,3 +273,125 @@ fig7 <- ggplot(fig7_data, aes(x = NOC, y = points, fill = pressure)) +
 print(fig7)
 ggsave("output/figures/fig7_case_study.png", fig7, width = 9, height = 6, dpi = 300)
 
+
+# ==============================================================================
+# DAY 14S: FIGURES 5-6 (Sarayu)
+# ==============================================================================
+
+# FIGURE 5: Execution Quality by Pressure (Bar chart with error bars)
+
+execution_data <- stones %>%
+  mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
+  inner_join(
+    pp_data %>% filter(PowerPlay == 1) %>% select(match_id, EndID, TeamID, pressure_combined),
+    by = c("match_id", "EndID", "TeamID")
+  ) %>%
+  group_by(pressure_combined) %>%
+  summarize(
+    avg_execution = mean(Points, na.rm = TRUE),
+    se = sd(Points, na.rm = TRUE) / sqrt(n()),
+    pct_perfect = mean(Points == 4, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+fig5 <- ggplot(execution_data, aes(x = pressure_combined, y = avg_execution, fill = pressure_combined)) +
+  geom_col(width = 0.7) +
+  geom_errorbar(aes(ymin = avg_execution - se, ymax = avg_execution + se), width = 0.2) +
+  geom_text(aes(label = paste0(round(pct_perfect * 100, 1), "% perfect")), 
+            vjust = -0.5, size = 3, color = "gray30") +
+  scale_fill_manual(values = c("low" = "#2ecc71", "medium" = "#f39c12", 
+                               "high" = "#e74c3c", "very_high" = "#8e44ad")) +
+  labs(
+    title = "Shot Execution Quality Drops Under Pressure",
+    subtitle = "Average execution score (0-4 scale) by pressure level",
+    x = "Pressure Level",
+    y = "Average Execution Score",
+    caption = "Percentage shows proportion of perfect shots (score = 4)"
+  ) +
+  theme_csas +
+  theme(legend.position = "none") +
+  ylim(0, 4)
+
+print(fig5)
+ggsave("output/figures/fig5_execution_quality.png", fig5, width = 8, height = 6, dpi = 300)
+
+
+# FIGURE 6: Model Coefficient Plot (Forest plot)
+
+coefficients <- readRDS("model_coefficients.rds")
+
+fig6_data <- coefficients %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    term_clean = str_remove_all(term, "shot1|shot2|pressure_combined"),
+    significant = ifelse(p.value < 0.05, "p < 0.05", "Not significant"),
+    direction = ifelse(estimate > 0, "Increases success", "Decreases success"),
+    term_clean = fct_reorder(term_clean, estimate)
+  )
+
+fig6 <- ggplot(fig6_data, aes(x = estimate, y = term_clean, color = significant)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = estimate - 1.96 * std.error, 
+                     xmax = estimate + 1.96 * std.error), height = 0.2) +
+  scale_color_manual(values = c("p < 0.05" = "#e74c3c", "Not significant" = "#95a5a6")) +
+  labs(
+    title = "What Predicts Power Play Success?",
+    subtitle = "Logistic regression coefficients (positive = higher odds of scoring 2+ points)",
+    x = "Coefficient (log-odds)",
+    y = "Predictor",
+    color = "Significance"
+  ) +
+  theme_csas
+
+print(fig6)
+ggsave("output/figures/fig6_model_coefficients.png", fig6, width = 10, height = 7, dpi = 300)
+
+print("✓ Day 14S Complete: Figures 5, 6 saved")
+
+
+
+# ==============================================================================
+# DAY 14A: FIGURE 7 + FINAL REVIEW (Armaan)
+# ==============================================================================
+
+# FIGURE 7: Case Study Comparison
+
+selected_teams <- readRDS("selected_case_study_teams.rds")
+team_profiles <- readRDS("team_profiles.rds")
+
+fig7_data <- team_profiles %>%
+  filter(NOC %in% selected_teams) %>%
+  select(NOC, mean_points_low, mean_points_high, ppcs) %>%
+  pivot_longer(
+    cols = c(mean_points_low, mean_points_high),
+    names_to = "pressure",
+    values_to = "points"
+  ) %>%
+  mutate(
+    pressure = ifelse(pressure == "mean_points_low", "Low Pressure", "High Pressure"),
+    pressure = factor(pressure, levels = c("Low Pressure", "High Pressure")),
+    NOC = factor(NOC, levels = c(selected_teams["clutch"], selected_teams["contender"], selected_teams["choke"]))
+  )
+
+fig7 <- ggplot(fig7_data, aes(x = NOC, y = points, fill = pressure)) +
+  geom_col(position = "dodge", width = 0.7) +
+  geom_hline(yintercept = 2, linetype = "dashed", color = "gray50", size = 0.5) +
+  annotate("text", x = 0.5, y = 2.1, label = "Success threshold (2 pts)", 
+           hjust = 0, size = 3, color = "gray40") +
+  scale_fill_manual(values = c("Low Pressure" = "#3498db", "High Pressure" = "#e74c3c")) +
+  labs(
+    title = "Case Study: Clutch vs Choke Performance",
+    subtitle = paste0(selected_teams["clutch"], " (Clutch) vs ", 
+                      selected_teams["contender"], " (Contender) vs ",
+                      selected_teams["choke"], " (Chokes)"),
+    x = "Team",
+    y = "Average Points on Power Play",
+    fill = "Situation"
+  ) +
+  theme_csas
+
+print(fig7)
+ggsave("output/figures/fig7_case_study.png", fig7, width = 9, height = 6, dpi = 300)
+
