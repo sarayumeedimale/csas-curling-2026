@@ -2,6 +2,8 @@
 # DAY 13S: CORE VISUALIZATIONS (Sarayu)
 # Figures 1-2: Scoring by pressure, Shot selection by pressure
 # ==============================================================================
+# Add at top of any script using pp_data
+pp_data <- pp_data %>% filter(PowerPlay == 1)
 
 library(tidyverse)
 library(scales)
