@@ -71,3 +71,76 @@ print("--- 📉 THE CHOKE ZONE (Bottom 3) ---")
 print(bottom_3_chokers)
 
 saveRDS(team_pp_stats, "team_profiles.rds")
+
+
+# ==============================================================================
+# ARMAAN - DAY 11A: TEAM CASE STUDY SELECTION
+# ==============================================================================
+
+# 1. LOAD DATA (Ensuring we have Sarayu's latest files)
+# Note: Adjust path if Sarayu saved it elsewhere, but this matches the plan
+team_profiles <- readRDS("output/team_profiles.rds")
+pp_data <- readRDS("output/pp_analysis_ready.rds")
+
+# 2. IDENTIFY THE CHARACTERS
+# We need 3 teams: The Hero (Clutch), The Villain (Choker), and The Contender
+
+# CLUTCH TEAM: Highest PPCS (performs best under pressure)
+clutch_team <- team_profiles %>%
+  arrange(desc(ppcs_raw)) %>%
+  slice(1) %>%
+  pull(NOC)
+
+# CHOKE TEAM: Lowest PPCS (performs worst under pressure)
+choke_team <- team_profiles %>%
+  arrange(ppcs_raw) %>%
+  slice(1) %>%
+  pull(NOC)
+
+# CONTENDER: A major nation (CAN, SWE, GBR, USA, etc.) with lots of data
+# who isn't already the clutch or choke team.
+contender_team <- team_profiles %>%
+  filter(!NOC %in% c(clutch_team, choke_team)) %>%
+  filter(n_pp > 15) %>%  # Filter for high sample size
+  filter(NOC %in% c("CAN", "SWE", "GBR", "USA", "NOR", "SUI", "ITA")) %>%
+  arrange(desc(n_pp)) %>%
+  slice(1) %>%
+  pull(NOC)
+
+# Print them out so you can see who they are in the Console
+print(paste("Clutch Hero:", clutch_team))
+print(paste("Choke Villain:", choke_team))
+print(paste("Olympic Contender:", contender_team))
+
+# 3. SAVE THE SELECTION
+# We save these names so we can use them in the visualizations later
+selected_teams <- c(clutch = clutch_team, choke = choke_team, contender = contender_team)
+saveRDS(selected_teams, "output/selected_case_study_teams.rds")
+
+# 4. FIND "HIGHLIGHT REEL" MOMENTS (For Figure 7)
+# We need specific Match IDs to plot later.
+
+# Find a game where the CLUTCH team scored 3+ points under HIGH pressure
+clutch_moment <- pp_data %>%
+  filter(NOC == clutch_team, pressure_combined == "high", Result >= 3) %>%
+  arrange(desc(Result)) %>%
+  slice(1) %>%
+  select(match_id, EndID, NOC, Result, pressure_combined)
+
+# Find a game where the CHOKE team scored 0 points under HIGH pressure
+choke_moment <- pp_data %>%
+  filter(NOC == choke_team, pressure_combined == "high", Result == 0) %>%
+  slice(1) %>%
+  select(match_id, EndID, NOC, Result, pressure_combined)
+
+print("--- CLUTCH MOMENT TO VISUALIZE ---")
+print(clutch_moment)
+
+print("--- CHOKE MOMENT TO VISUALIZE ---")
+print(choke_moment)
+
+# Save these specific moments for the visualization script
+case_study_moments <- bind_rows(clutch_moment, choke_moment)
+saveRDS(case_study_moments, "output/case_study_moments.rds")
+
+
