@@ -5,34 +5,28 @@ library(tidyverse)
 library(broom) # For tidy statistical test outputs
 
 # 1. LOAD DATA ------------------------------------------------------------
-# We use the final dataset created by Armaan on Day 7
-pp_data <- readRDS("pp_analysis_ready.rds")
-
-# --- EMERGENCY FIX: RE-APPLY DAY 7 LOGIC ---
-pp_data <- pp_data %>%
-  mutate(
-    pressure_combined = case_when(
-      pressure_situation == "high" & pressure_leverage == "high" ~ "very_high",
-      pressure_situation == "high" | pressure_leverage == "high" ~ "high",
-      pressure_situation == "medium" | pressure_leverage == "medium" ~ "medium",
-      TRUE ~ "low"
-    )
-  )
-
-# Set factor levels
-pp_data$pressure_combined <- factor(pp_data$pressure_combined, 
-                                    levels = c("low", "medium", "high", "very_high"))
-# -------------------------------------------
-
 # --- FIX: RECOVER MISSING SCORE DATA (CORRECTED) ---
-# 1. Read the raw data
-raw_ends <- read_csv("data/raw/Ends.csv")
 
-# 2. Create matching ID and select the 'Result' column directly
-# (The raw file already calls it 'Result', not 'Score')
+# 1. READ THE RAW FILE FIRST (This is the missing line!)
+raw_ends <- read_csv("data/raw/Ends.csv", show_col_types = FALSE)
+
+# 2. NOW create the matching ID
 raw_ends <- raw_ends %>%
   mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
   select(match_id, EndID, TeamID, Result) 
+
+# 3. Join it back to your data
+# Safety check: Remove 'Result' if it already exists to avoid duplicates
+if("Result" %in% colnames(pp_data)) {
+  pp_data <- pp_data %>% select(-Result)
+}
+
+pp_data <- pp_data %>%
+  left_join(raw_ends, by = c("match_id", "EndID", "TeamID"))
+
+# 4. Check that it worked (Result should be numeric now)
+print("Data Recovery Complete. Columns:")
+print(colnames(pp_data))
 
 # 3. Join it back to your data
 # We use 'right_join' or 'left_join' depending on needs, but here left_join is safe.
