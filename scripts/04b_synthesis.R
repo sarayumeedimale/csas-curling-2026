@@ -62,3 +62,4 @@ cat(paste0(
   "2. DEFENSIVE PIVOT: Teams panic-switch to Guards. Usage jumps from ", low_perf$guard_pct, " to ", very_high_perf$guard_pct, ".\n",
   "3. STRATEGY SHIFT: The backup plan changes from '", low_perf$second_sequence, "' (Aggressive) to '", very_high_perf$second_sequence, "' (Defensive)."
 ))
+
