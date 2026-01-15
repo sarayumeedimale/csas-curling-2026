@@ -36,9 +36,9 @@ The `echo: false` option disables the printing of code (only output is displayed
 
 ## **1. Executive Summary**
 
-**The Problem: The "Wild West" of Winter Sports**
+**Mixed Doubles: The Most Common Format of Doubles Curling**
 
-Mixed doubles curling is a fast-paced, two-person version of traditional curling, featuring one male and one female player per team, with unique rules like pre-placed stones at the start of each end, five stones thrown per end (instead of eight), and a power play option for the team with the hammer, making for more strategic, quicker games. Within this chaotic environment, the Power Play represents the sport’s "nuclear option" being a single-use strategic advantage available to each team once per game when they hold the hammer (last rock advantage). Yet, despite its critical importance, its deployment remains governed by intuition rather than evidence. Teams use it blindly, often when the pressure is highest, without understanding the statistical probabilities of success.
+Mixed doubles curling is a faster-paced, two-person version of traditional curling, featuring one male and one female player per team, with unique rules like pre-placed stones at the start of each end, five stones thrown per end (instead of eight), and a power play option for the team with the hammer, making for more strategic, quicker games. Within this chaotic environment, the Power Play represents the sport’s "nuclear option" being a single-use strategic advantage available to each team once per game when they hold the hammer (last rock advantage). Yet, despite its critical importance, its deployment remains governed by intuition rather than evidence. Teams use it blindly, often when the pressure is highest, without understanding the statistical probabilities of success.
 
 **The Agitation: The Paradox of the Anxious Sniper\
 **When the pressure mounts in the final ends, elite teams do not "choke" in the traditional physical sense as their execution metrics remain remarkably robust. Instead, they retreat. Our analysis of over 26,000 international stone observations reveals a phenomenon we term the **"Anxious Sniper."**
