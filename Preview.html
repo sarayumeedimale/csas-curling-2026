@@ -135,6 +135,7 @@ window.Quarto = {
   <li><a href="#for-coaches-abandon-the-shot-1-guard" id="toc-for-coaches-abandon-the-shot-1-guard" class="nav-link" data-scroll-target="#for-coaches-abandon-the-shot-1-guard"><strong>4.1 For Coaches: Abandon the Shot 1 Guard</strong></a></li>
   <li><a href="#training-the-anxious-sniper-the-pressure-cooker-drill" id="toc-training-the-anxious-sniper-the-pressure-cooker-drill" class="nav-link" data-scroll-target="#training-the-anxious-sniper-the-pressure-cooker-drill"><strong>4.2 Training the Anxious Sniper: The “Pressure Cooker” Drill</strong></a></li>
   <li><a href="#for-scouts-weaponizing-the-ppcs" id="toc-for-scouts-weaponizing-the-ppcs" class="nav-link" data-scroll-target="#for-scouts-weaponizing-the-ppcs"><strong>4.3 For Scouts: Weaponizing the PPCS</strong></a></li>
+  <li><a href="#the-false-clutch-implications" id="toc-the-false-clutch-implications" class="nav-link" data-scroll-target="#the-false-clutch-implications">4.4 The “False Clutch” Implications</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><strong>4.4 Limitations</strong></a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><strong>5. Conclusion</strong></a></li>
@@ -200,8 +201,8 @@ window.Quarto = {
 </section>
 <section id="executive-summary" class="level2">
 <h2 class="anchored" data-anchor-id="executive-summary"><strong>1. Executive Summary</strong></h2>
-<p><strong>The Problem: The “Wild West” of Winter Sports</strong></p>
-<p>Mixed doubles curling is a fast-paced, two-person version of traditional curling, featuring one male and one female player per team, with unique rules like pre-placed stones at the start of each end, five stones thrown per end (instead of eight), and a power play option for the team with the hammer, making for more strategic, quicker games. Within this chaotic environment, the Power Play represents the sport’s “nuclear option” being a single-use strategic advantage available to each team once per game when they hold the hammer (last rock advantage). Yet, despite its critical importance, its deployment remains governed by intuition rather than evidence. Teams use it blindly, often when the pressure is highest, without understanding the statistical probabilities of success.</p>
+<p><strong>Mixed Doubles: The Most Common Format of Doubles Curling</strong></p>
+<p>Mixed doubles curling is a faster-paced, two-person version of traditional curling, featuring one male and one female player per team, with unique rules like pre-placed stones at the start of each end, five stones thrown per end (instead of eight), and a power play option for the team with the hammer, making for more strategic, quicker games. Within this chaotic environment, the Power Play represents the sport’s “nuclear option” being a single-use strategic advantage available to each team once per game when they hold the hammer (last rock advantage). Yet, despite its critical importance, its deployment remains governed by intuition rather than evidence. Teams use it blindly, often when the pressure is highest, without understanding the statistical probabilities of success.</p>
 <p><strong>The Agitation: The Paradox of the Anxious Sniper<br>
 </strong>When the pressure mounts in the final ends, elite teams do not “choke” in the traditional physical sense as their execution metrics remain remarkably robust. Instead, they retreat. Our analysis of over 26,000 international stone observations reveals a phenomenon we term the <strong>“Anxious Sniper.”</strong></p>
 <p>The data shows that while players maintain high execution scores under pressure, this is partly driven by a shift toward mechanically easier defensive shots (Guards). They possess the “Sniper” capability to hit the target, evidenced by high execution scores, but they refuse to pull the trigger on complex scoring shots (Draws), opting instead for safety. This conservative pivot limits scoring output despite high execution metrics, neutralizing the Power Play’s inherent advantage. They don’t lose because they miss; they lose because they play not to lose.</p>
@@ -300,6 +301,17 @@ points (the strategic goal of a Power Play).</p></li>
 <figcaption>The Anxious Sniper Effect: High execution scores vs.&nbsp;low scoring output.</figcaption>
 </figure>
 </div>
+<p>However, averages conceal individual collapses. When we untangle the data by nation, we see distinct behavioral phenotypes: those like NZL who capitalize on the moment, and those like EST who buckle.</p>
+<div id="fig-pressure-curves" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pressure-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="output/figures/fig5_pressure_curves.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pressure-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Pressure curves across different match scenarios
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="finding-2-the-shot-2-protection-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="finding-2-the-shot-2-protection-strategy"><strong>3.2 Finding 2: The Shot 2 Protection Strategy</strong></h3>
@@ -315,6 +327,17 @@ points (the strategic goal of a Power Play).</p></li>
 <figure class="figure">
 <p><img src="output/figures/fig2_shot_selection.png" class="img-fluid figure-img"></p>
 <figcaption>Shot Selection Analysis.</figcaption>
+</figure>
+</div>
+<p>Our model looks at what really drives these outcomes. You’ll see in the next graph that while pressure impacts every player, certain shots have a much wider range of success and failure. This volatility suggests that for a smart team, these moments are where you can actually win the game by making a tactical choice the other team is too afraid to try</p>
+<div id="fig-model-coeffs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model-coeffs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="output/figures/fig4_model_coefficients.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-coeffs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Model coefficients for pressure performance factors
+</figcaption>
 </figure>
 </div>
 </section>
@@ -342,7 +365,7 @@ points (the strategic goal of a Power Play).</p></li>
 <img src="output/figures/fig3_ppcs_rankings.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: PPCS Rankings by Team
+Figure&nbsp;3: PPCS Rankings by Team
 </figcaption>
 </figure>
 </div></li>
@@ -360,6 +383,25 @@ Figure&nbsp;1: PPCS Rankings by Team
 </strong>Italy, with a PPCS of +1.75, leans into the “Shot 2 Protection” strategy.</p>
 <ul>
 <li>The Consequence: Italy ignores the center guard initially. They use Shot 1 to Draw to the button or the edge of the four-foot (behind the corner guard). This immediately establishes a “threat of 2.” When the opponent attempts to remove or freeze to this stone, Italy then uses Shot 2 to Guard or Freeze, locking the advantage in place. By prioritizing offense over protection in the opening sequence, they force the opponent to chase the game, increasing the probability of a multi-point end.</li>
+</ul>
+<p><strong>The False Clutch Problem:<br>
+</strong>Finally, we must distinguish between ‘stat-padding’ and winning. By plotting PPCS against Win Probability Added (WPA), we expose the ‘False Clutch’ teams: those who score points that ultimately fail to alter the game’s outcome.</p>
+<p>The data reveals a weak correlation (<span class="math inline">\(r= 0.17\)</span>) between scoring under pressure and actually winning games. This highlights a critical distinction in curling strategy: not all points are created equal.</p>
+<div id="fig-ppcs-wpa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ppcs-wpa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="output/figures/fig6_ppcs_vs_wpa.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ppcs-wpa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Relationship between Pressure Performance (PPCS) and Win Probability Added (WPA)
+</figcaption>
+</figure>
+</div>
+<p><strong>By cross-referencing our Pressure Performance Score (PPCS) with Win Probability Added (WPA) as shown above, we identified two distinct behavioral profiles:</strong></p>
+<ul>
+<li><p><strong>The “False Clutch” (e.g., Italy):</strong> Italy (ITA) ranks <strong>2nd</strong> in our model with a PPCS of <strong>+1.75</strong>, indicating they are elite at generating points under pressure. However, their position in quadrants reveals a low WPA. This suggests a “stat-padding” effect: Italy executes difficult shots effectively, but often in “garbage time” which refers to low-leverage moments where the points do not significantly alter the match outcome.</p></li>
+<li><p><strong>The “True Clutch” (Efficient Scoring):</strong> In contrast, Canada (CAN) ranks <strong>3rd</strong> in PPCS at <strong>+1.33</strong>. While their raw scoring output under pressure is lower than Italy’s, their WPA is significantly higher (appearing in the top-right “True Clutch” quadrant). This indicates high <em>efficiency</em>: Canada’s points are scored in the pivotal moments that flip loss probabilities into win probabilities.</p></li>
+<li><p><strong>Tactical Opportunity:</strong> For teams like New Zealand (NZL), who show very high pressure scoring but lower impact than Canada, the goal is to shift those successful shots into more impactful game scenarios.</p></li>
 </ul>
 </section>
 </section>
@@ -389,6 +431,11 @@ Figure&nbsp;1: PPCS Rankings by Team
 <li><p><strong>Against Italy:</strong> They are statistically likely to become more aggressive and successful late in games. Defending against Italy requires high-risk steal attempts in Ends 6-8; playing a standard “clean” defense is ineffective because they thrive on execution under pressure.</p></li>
 <li><p><strong>Against USA:</strong> The data suggests they are prone to conservative regressions. In high-pressure Power Play scenarios, they are statistically more likely to settle for 1 point or miss a complex conversion. Opponents should force the USA to make aggressive calls, knowing their statistical tendency is to retreat to safety.</p></li>
 </ul>
+</section>
+<section id="the-false-clutch-implications" class="level3">
+<h3 class="anchored" data-anchor-id="the-false-clutch-implications">4.4 The “False Clutch” Implications</h3>
+<p>While our initial analysis of the “Clutch Paradox” revealed that average scoring actually increases by <strong>34.8%</strong> in very high-pressure scenarios (rising from 1.43 to 1.93 points), this aggregate lift conceals a critical strategic inefficiency. High scoring under pressure does not always correlate with winning.</p>
+<p><strong>Implication for Strategy:</strong> Coaches and skips must distinguish between <em>offensive capacity</em> and <em>game impact</em>. A team like New Zealand (Rank 1, +2.67 PPCS) clearly has the technical ability to score, but to emulate Canada’s success, they must optimize <em>when</em> they deploy aggressive tactics. The data suggests that defensive shifts (like the Shot 2 Guard, which increases success by 244%) should be prioritized over aggressive scoring attempts unless the WPA leverage is high.</p>
 </section>
 <section id="limitations" class="level3">
 <h3 class="anchored" data-anchor-id="limitations"><strong>4.4 Limitations</strong></h3>

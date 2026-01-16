@@ -130,6 +130,10 @@ Mechanically, a Guard is a "safer" shot than a precision Draw or a high-weight T
 
 ![The Anxious Sniper Effect: High execution scores vs. low scoring output.](output/figures/fig1_scoring_by_pressure.png)
 
+However, averages conceal individual collapses. When we untangle the data by nation, we see distinct behavioral phenotypes: those like NZL who capitalize on the moment, and those like EST who buckle.
+
+![Pressure curves across different match scenarios](output/figures/fig5_pressure_curves.png){#fig-pressure-curves}
+
 ### **3.2 Finding 2: The Shot 2 Protection Strategy**
 
 Our predictive model aimed to identify the opening sequence that maximizes the probability of a multi-point end. The model isolated the **Second Shot** (the non-hammer team's response or the hammer team's setup) as a critical pivot point.
@@ -144,6 +148,10 @@ Our predictive model aimed to identify the opening sequence that maximizes the p
 **A forest plot of the logistic regression coefficients. Note that "Shot 1 Guard" (green dot, left) is associated with failure, while "Shot 2 Guard" (green dot, right) is strongly associated with success (OR 3.44), identifying a high-value but under-utilized tactic.
 
 ![Shot Selection Analysis.](output/figures/fig2_shot_selection.png)
+
+Our model looks at what really drives these outcomes. You'll see in the next graph that while pressure impacts every player, certain shots have a much wider range of success and failure. This volatility suggests that for a smart team, these moments are where you can actually win the game by making a tactical choice the other team is too afraid to try
+
+![Model coefficients for pressure performance factors](output/figures/fig4_model_coefficients.png){#fig-model-coeffs}
 
 ### **3.3 Finding 3: Team Rankings (PPCS)**
 
@@ -184,6 +192,21 @@ To visualize the impact of PPCS, let us apply our findings to a hypothetical but
 
 -   The Consequence: Italy ignores the center guard initially. They use Shot 1 to Draw to the button or the edge of the four-foot (behind the corner guard). This immediately establishes a "threat of 2." When the opponent attempts to remove or freeze to this stone, Italy then uses Shot 2 to Guard or Freeze, locking the advantage in place. By prioritizing offense over protection in the opening sequence, they force the opponent to chase the game, increasing the probability of a multi-point end.
 
+**The False Clutch Problem:\
+**Finally, we must distinguish between 'stat-padding' and winning. By plotting PPCS against Win Probability Added (WPA), we expose the 'False Clutch' teams: those who score points that ultimately fail to alter the game's outcome.
+
+The data reveals a weak correlation ($r= 0.17$) between scoring under pressure and actually winning games. This highlights a critical distinction in curling strategy: not all points are created equal.
+
+![Relationship between Pressure Performance (PPCS) and Win Probability Added (WPA)](output/figures/fig6_ppcs_vs_wpa.png){#fig-ppcs-wpa}
+
+**By cross-referencing our Pressure Performance Score (PPCS) with Win Probability Added (WPA) as shown above, we identified two distinct behavioral profiles:**
+
+-   **The "False Clutch" (e.g., Italy):** Italy (ITA) ranks **2nd** in our model with a PPCS of **+1.75**, indicating they are elite at generating points under pressure. However, their position in quadrants reveals a low WPA. This suggests a "stat-padding" effect: Italy executes difficult shots effectively, but often in "garbage time" which refers to low-leverage moments where the points do not significantly alter the match outcome.
+
+-   **The "True Clutch" (Efficient Scoring):** In contrast, Canada (CAN) ranks **3rd** in PPCS at **+1.33**. While their raw scoring output under pressure is lower than Italy's, their WPA is significantly higher (appearing in the top-right "True Clutch" quadrant). This indicates high *efficiency*: Canada’s points are scored in the pivotal moments that flip loss probabilities into win probabilities.
+
+-   **Tactical Opportunity:** For teams like New Zealand (NZL), who show very high pressure scoring but lower impact than Canada, the goal is to shift those successful shots into more impactful game scenarios.
+
 ## **4. Discussion and Implications**
 
 ### **4.1 For Coaches: Abandon the Shot 1 Guard**
@@ -215,6 +238,12 @@ The PPCS offers a distinct scouting advantage for the 2026 cycle.
 -   **Against Italy:** They are statistically likely to become more aggressive and successful late in games. Defending against Italy requires high-risk steal attempts in Ends 6-8; playing a standard "clean" defense is ineffective because they thrive on execution under pressure.
 
 -   **Against USA:** The data suggests they are prone to conservative regressions. In high-pressure Power Play scenarios, they are statistically more likely to settle for 1 point or miss a complex conversion. Opponents should force the USA to make aggressive calls, knowing their statistical tendency is to retreat to safety.
+
+### 4.4 The "False Clutch" Implications
+
+While our initial analysis of the "Clutch Paradox" revealed that average scoring actually increases by **34.8%** in very high-pressure scenarios (rising from 1.43 to 1.93 points), this aggregate lift conceals a critical strategic inefficiency. High scoring under pressure does not always correlate with winning.
+
+**Implication for Strategy:** Coaches and skips must distinguish between *offensive capacity* and *game impact*. A team like New Zealand (Rank 1, +2.67 PPCS) clearly has the technical ability to score, but to emulate Canada's success, they must optimize *when* they deploy aggressive tactics. The data suggests that defensive shifts (like the Shot 2 Guard, which increases success by 244%) should be prioritized over aggressive scoring attempts unless the WPA leverage is high.
 
 ### **4.4 Limitations**
 
