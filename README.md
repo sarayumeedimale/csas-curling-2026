@@ -1,71 +1,89 @@
-# CSAS Curling Data Challenge 2026
+# The Anxious Sniper: Quantifying Strategic Regression in High-Stakes Mixed Doubles Curling
+### 2026 CSAS Data Challenge
 
-**Team:** Sarayu & Armaan
+## Project Overview
+This repository contains the code and methodology for our analysis of Power Play execution under pressure in Mixed Doubles Curling. 
 
-**Power Play Count:** 598
+Our research introduces the **Power Play Clutch Score (PPCS)** and the **Shot 2 Protection Strategy**. We analyze over 26,000 stone observations to demonstrate the "Anxious Sniper" effect: the phenomenon where elite teams maintain high physical execution metrics under pressure but regress strategically, thus opting for conservative shot selections that lower their win probability.
 
----
-## Update: Day 3 (Exploration & Modeling)
 
-### 1. Power Play Exploration (Day 3S)
-**Analyst:** Sarayu | **Dataset:** 2,985 stones (597 Power Play ends)
+## Data Setup Instructions
 
-**Data Integrity & Cleaning**
-- **Anomaly Detected:** Match `0_10_1` (End 7) was flagged as a Power Play but the team did not have the hammer.
-- **Action:** Removed this end (5 stones) as a data entry error.
-- **Validation:** Remaining dataset has 100% compliance with hammer rules.
+Before running any scripts, you must configure the data directory locally:
 
-**Strategic Insights**
-- **Timing:** Usage is heavily back-loaded, peaking in **Ends 6 and 7**. Teams treat the Power Play as a "setup" mechanic for the final end.
-- **Score Context:** Usage is skewed towards **losing teams (down 1-2)** or **tied games**.
-- **Defensive Behavior:** Teams leading by 2+ points rarely use the Power Play, preferring open defense.
+1.  Create a folder named `data` in the root directory of this project.
+2.  Inside that folder, create a subfolder named `raw`.
+3.  Place the official CSAS Data Challenge CSV files into `data/raw/`.
 
-### 2. Win Probability Model v1 (Day 3A)
-**Analyst:** Armaan | **Algorithm:** Logistic Regression
+**Required File Structure:**
+```text
+project_root/
+├── data/
+│   └── raw/
+│       ├── Stones.csv
+│       ├── Games.csv
+│       ├── Competitions.csv
+│       ├── Ends.csv
+│       ├── Teams.csv
+│       └── Competitors.csv
+├── scripts/
+│   └── ... (01 through 07)
+└── README.md
+```
 
-**Objective**
-To establish a baseline for "expected performance," we trained a model to predict a team's probability of winning ($P(Win)$) based on the game state.
 
-**Model Specification**
-- **Outcome:** Win (1) or Loss (0)
-- **Predictors:** Score Differential, Hammer Possession, Ends Remaining.
+## Dependencies
+All analysis was performed using **R**. Please ensure you have the following packages installed before executing the pipeline:
 
-**Validation Results ("The Smell Test")**
-- **Hammer Advantage:** Coefficient is **+1.929** ($p < 2e^{-16}$), confirming that having the last shot is a massive advantage.
-- **Score Impact:** Coefficient is **+1.283**, quantifying the value of every point on the board.
-- **Reality Check:** In a **Tied Game, End 8 (Last End) with Hammer**, the model predicts a **70.7% Win Probability**. This aligns perfectly with professional curling analytics (typically 65–75%).
+```r
+install.packages(c("tidyverse", "broom", "pROC", "ggplot2", "dplyr"))
+```
 
-**Goodness of Fit**
-- Residual Deviance (5019) is significantly lower than Null Deviance (7219), indicating the model explains a large portion of the variance.
+*   **tidyverse** (Data manipulation and visualization)
+*   **broom** (Tidy model output)
+*   **pROC** (ROC/AUC calculation for the Win Probability model)
 
-## 📊 Key Findings (Preliminary)
 
-### 1. The "Do-or-Die" Strategy Shift (Day 8 Analysis)
-We analyzed the first 3 shots of an end to see if teams play more conservatively (throwing guards) when under pressure.
-* **The Trend:** It follows a "U-shape."
-    * **Low Pressure:** Teams experiment more (~5.4% Guards).
-    * **High Pressure:** Teams play "clean," avoiding clutter to minimize risks (~4.4% Guards).
-    * **Very High Pressure:** Teams suddenly switch to aggressive "junk" play, throwing **significantly more guards (~6.9%)**.
-* **Insight:** In desperate situations, teams try to clutter the house to force opponent errors, rather than playing it safe.
+## Execution Guide
+The analysis pipeline is modular. Please run the scripts in the numerical order listed below to ensure dependencies (cleaned data, model objects) are generated correctly.
 
-### 2. The "Clutch" Factor: Execution Improves Under Pressure (Day 9 Analysis)
-We tested if shot execution (scored 0-4) drops due to nerves in high-stakes moments.
-* **Result:** Performance actually **improves** as pressure rises.
-    * **Low Pressure Avg Score:** 2.96 / 4.0
-    * **High Pressure Avg Score:** 3.13 / 4.0
-    * **Perfect Shots:** In "Very High" pressure scenarios, **58.5%** of shots are executed perfectly (4/4).
-* **Statistical Significance:** An ANOVA test confirmed this difference is significant ($p < 0.001$). Professional curlers lock in rather than choke when the game is on the line.
+### 1. Data Preparation
+*   **`01_data_cleaning.R`**
+    *   **Function:** Imports raw Curlit data, handles sentinel values (e.g., converting coordinate `4095` to `NA`), and merges Game/End/Stone tables.
+    *   **Output:** Creates the master dataset and filters specifically for **Power Play ends**.
 
-### 3. Strategy Shifts: The "Defensive Pivot" (Day 9A Analysis)
-We analyzed the specific sequence of the first 3 shots (e.g., "Draw-Draw-Guard") to see how strategies change.
-* **The Universal Standard:** "Draw-Draw-Draw" is the #1 most common opening across all pressure levels.
-* **The Pressure Shift:**
-    * **Low Pressure:** Teams experiment with aggression. The #2 strategy is **"Draw-Draw-Raise"**.
-    * **High/Very High Pressure:** Teams pivot to defense. The #2 strategy becomes **"Draw-Draw-Guard"**.
-* **Insight:** When pressure mounts, teams abandon aggressive "raise" attempts. If the first two draws aren't perfect, they immediately switch to a Guard on shot #3 to protect the house.
+### 2. Metric Definition
+*   **`02_win_probability.R`**
+    *   **Function:** Trains a logistic regression model on historical game states to calculate Win Probability ($P_{win}$).
+    *   **Output:** Derives the **Leverage Index** (the potential swing in $P_{win}$ based on the current end's outcome).
+*   **`03_pressure_metrics.R`**
+    *   **Function:** Calculates the **Combined Pressure Index**.
+    *   **Methodology:** Integrates Score Differential, Ends Remaining, and the Leverage Index to classify ends into "Low," "Medium," "High," and "Very High" pressure categories.
 
-### 4. Synthesis: The "Anxious Sniper" Phenomenon (Day 10S)
-By combining all analyses, we found a distinct profile for Olympic-level curlers under pressure:
-* **Execution:** They are "Snipers." Shot quality *improves* significantly (58% perfect shots in Very High pressure vs 54% in Low).
-* **Strategy:** They are "Anxious." Despite shooting better, they play more fearfully, switching to defensive Guards ("Draw-Draw-Guard") rather than trusting their offense.
-* **Conclusion:** Teams don't lose because they miss shots; they lose because they retreat into defensive shells when they should be attacking.
+### 3. Core Analysis
+*   **`04_power_play_analysis.R`**
+    *   **Function:** Performs the primary statistical analysis.
+    *   **Output:** Calculates the **Power Play Clutch Score (PPCS)** for the global dataset and identifies the divergence between Execution Quality (Points) and Scoring Output.
+
+### 4. Team Profiling
+*   **`05_team_profiles.R`**
+    *   **Function:** Aggregates data by National Olympic Committee (NOC).
+    *   **Output:** Generates team-specific efficiency rankings, identifying "Antifragile" teams (e.g., ITA) vs. "Regressive" teams (e.g., USA).
+
+### 5. Predictive Modeling
+*   **`06_predictive_model.R`**
+    *   **Function:** Trains a multivariate logistic regression model to predict Power Play success ($\ge 2$ points).
+    *   **Output:** Generates Odds Ratios for shot selection, identifying the **"Shot 2 Protection Strategy"** as a statistically significant predictor of success.
+
+### 6. Visualization
+*   **`07_visualizations.R`**
+    *   **Function:** Generates the publication-ready figures used in the final report.
+    *   **Output:** Saves `.png` files to the `output/figures/` directory (e.g., The Clutch Paradox Chart, Team Rankings Lollipop Chart).
+
+
+## Output
+All intermediate data files and final figures will be saved to the `output/` directory created by the scripts.
+
+*   **`output/figures/`**: Contains the visual evidence for the "Anxious Sniper" theory.
+*   **`output/models/`**: Contains the saved `.rds` model objects.
+```

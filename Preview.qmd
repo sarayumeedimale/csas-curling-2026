@@ -86,8 +86,7 @@ Ends with the highest quartile of (?) were classified as High Pressure. Correlat
 
 ### **2.3 The Power Play Clutch Score (PPCS)**
 
-We developed the PPCS to normalize team performance against their own baseline. A raw scoring average is insufficient because stronger teams naturally score more points regardless of context. The PPCS isolates the "clutch" variable:
-$$
+We developed the PPCS to normalize team performance against their own baseline. A raw scoring average is insufficient because stronger teams naturally score more points regardless of context. The PPCS isolates the "clutch" variable: $$
 PPCS = \mu_{HighPressure} - \mu_{LowPressure}
 $$
 
@@ -97,39 +96,18 @@ Where $\mu$ represents the average points scored per Power Play end. A positive 
 
 To determine the optimal shot selection strategy, we employed a multivariate logistic regression model. The goal was to isolate the marginal effect of specific shot choices while controlling for pressure.
 
-**Model Specification:\
-**\
+**Model Specification:**\
  $$
 \ln\left(\frac{P(Success)}{1-P(Success)}\right) = \beta_0 + \beta_1 S_1 + \beta_2 S_2 + \beta_3 \pi + \beta_4 (S_1 \times \pi) + \epsilon
 $$
 
-**Dependent Variable**
+**Where:**
 
--   $P(Success)$: The probability of scoring\
-            ≥2\\ge 2≥2
-
--        \
-    points (the strategic goal of a Power Play).
-
-**S1S_1S1​**
-
--    **\
-    ** : Shot 1 Type (Categorical: Guard vs. Draw vs. Takeout).
-
-**S2S_2S2​**
-
--    **\
-    ** : Shot 2 Type (Categorical).
-
-**π\\piπ**
-
--    **\
-    ** : Pressure Level (Ordinal).
-
-**S1×πS_1 \\times \\piS1​×π**
-
--    **\
-    ** : Interaction term to determine if specific shots perform better or worse as pressure increases.
+-   **Dependent Variable (**$P(Success)$): The probability of scoring $\ge 2$ points (the strategic goal of a Power Play).
+-   $S_1$: Shot 1 Type (Categorical: Guard vs. Draw vs. Takeout).
+-   $S_2$: Shot 2 Type (Categorical).
+-   $\pi$: Pressure Level (Ordinal).
+-   $S_1 \times \pi$: Interaction term to determine if specific shots perform better or worse as pressure increases.
 
 **Modeling Caveat:** While we controlled for shot type and game state, "Player Skill" remains an omitted variable due to the limitations of anonymized aggregated data. Therefore, results should be interpreted as strategic tendencies rather than isolated physics simulations.
 
