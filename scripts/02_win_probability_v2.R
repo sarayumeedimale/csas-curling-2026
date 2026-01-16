@@ -33,7 +33,8 @@ scores <- ends %>%
   mutate(my_score_before = cumsum(lag(Result, default = 0))) %>%
   ungroup()
 
-# B) Hammer Logic
+# B) Hammer Logic (FIXED FOR MIXED DOUBLES)
+# ---------------------------------------------------------
 hammer_info <- games %>% select(match_id, TeamID1, TeamID2, LSFE)
 
 hammer_logic <- ends %>%
@@ -45,10 +46,17 @@ hammer_logic <- ends %>%
   arrange(EndID) %>%
   mutate(
     hammer_owner_raw = case_when(
+      # End 1
       EndID == 1 & LSFE == 1 ~ TeamID1,
       EndID == 1 & LSFE == 0 ~ TeamID2,
+      
+      # Standard Scoring (Scorer loses hammer)
       lag(Result, default=0) > 0 ~ TeamID_opp,
       lag(Result_opp, default=0) > 0 ~ TeamID,
+      
+      # MIXED DOUBLES RULE: Blank End (0-0) -> SWAP HAMMER
+      lag(Result, default=0) == 0 & lag(Result_opp, default=0) == 0 ~ TeamID_opp,
+      
       TRUE ~ NA_real_
     )
   ) %>%
@@ -66,6 +74,7 @@ training_data <- scores %>%
   left_join(scores, by = c("match_id", "EndID"), suffix = c("", "_opp"), relationship = "many-to-many") %>%
   filter(TeamID != TeamID_opp) %>%
   mutate(score_diff = my_score_before - my_score_before_opp) %>%
+  mutate(PowerPlay = replace_na(PowerPlay, 0)) %>%
   # *** STRATEGIC UPDATE: Select PowerPlay here ***
   select(match_id, EndID, TeamID, score_diff, PowerPlay) %>% 
   left_join(hammer_logic, by = c("match_id", "EndID", "TeamID")) %>%

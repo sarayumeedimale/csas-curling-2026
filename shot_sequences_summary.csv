@@ -1,0 +1,556 @@
+pressure_combined,sequence,frequency,success_rate
+low,Draw-Draw-Draw,90,3.140740740740741
+low,Draw-Draw-Raise,27,3.1358024691358026
+low,Draw-Draw-Double Take-out,22,3.1818181818181817
+low,Draw-Draw-Guard,21,3.634920634920635
+low,Draw-Draw-Other,20,2.4833333333333334
+low,Draw-Draw-Take-out,19,2.8596491228070176
+low,Draw-Raise-Draw,17,3.0980392156862746
+low,Wick-Draw-Hit and Roll,11,3.393939393939394
+low,Draw-Raise-Raise,10,3.033333333333333
+low,Draw-Draw-Hit and Roll,8,3.2916666666666665
+low,Draw-Raise-Double Take-out,8,2.8333333333333335
+low,Guard-Draw-Draw,7,2.761904761904762
+low,Wick-Draw-Take-out,7,3.619047619047619
+low,Draw-Double Take-out-Double Take-out,6,2.111111111111111
+low,Draw-Guard-Draw,6,3.388888888888889
+low,Draw-Raise-Take-out,6,3.2777777777777777
+low,Raise-Draw-Take-out,6,3.055555555555556
+low,Raise-Raise-Double Take-out,6,2.388888888888889
+low,Draw-Double Take-out-Draw,5,2.533333333333333
+low,Draw-Draw-Clearing,5,3.466666666666667
+low,Raise-Draw-Double Take-out,5,3
+low,Wick-Draw-Draw,5,2.933333333333333
+low,Wick-Wick-Double Take-out,5,2.2666666666666666
+low,Draw-Guard-Guard,4,3.8333333333333335
+low,Raise-Draw-Hit and Roll,4,2.8333333333333335
+low,Wick-Draw-Double Take-out,4,3
+low,Wick-Draw-Other,4,1.5833333333333333
+low,Draw-Clearing-Clearing,3,4
+low,Draw-Other-Double Take-out,3,3
+low,Draw-Take-out-Draw,3,3
+low,Draw-Take-out-Hit and Roll,3,3
+low,Guard-Draw-Hit and Roll,3,2.5555555555555554
+low,Raise-Draw-Raise,3,3.4444444444444446
+low,Wick-Draw-Clearing,3,3
+low,Draw-Clearing-Double Take-out,2,3.5
+low,Draw-Guard-Take-out,2,3.166666666666667
+low,Draw-Hit and Roll-Hit and Roll,2,2.666666666666667
+low,Draw-Hit and Roll-Take-out,2,2.5
+low,Draw-Raise-Clearing,2,2.1666666666666665
+low,Draw-Raise-Guard,2,4
+low,Draw-Take-out-Double Take-out,2,2
+low,Draw-Take-out-Take-out,2,1.5
+low,Guard-Draw-Double Take-out,2,2.666666666666667
+low,Guard-Draw-Raise,2,2.6666666666666665
+low,Guard-Raise-Draw,2,3.333333333333333
+low,Raise-Draw-Clearing,2,3.3333333333333335
+low,Raise-Draw-Draw,2,3.333333333333333
+low,Raise-Draw-Other,2,2.8333333333333335
+low,Wick-Raise-Hit and Roll,2,3.666666666666667
+low,Wick-Wick-Take-out,2,2.6666666666666665
+low,Draw-Clearing-Draw,1,3
+low,Draw-Double Take-out-Hit and Roll,1,3
+low,Draw-Double Take-out-Other,1,2.6666666666666665
+low,Draw-Double Take-out-Wick,1,2.6666666666666665
+low,Draw-Freeze-Draw,1,3.6666666666666665
+low,Draw-Freeze-Other,1,3.3333333333333335
+low,Draw-Guard-Hit and Roll,1,4
+low,Draw-Hit and Roll-Draw,1,3.6666666666666665
+low,Draw-Hit and Roll-Raise,1,0.6666666666666666
+low,Draw-Other-Draw,1,4
+low,Draw-Other-Other,1,1.6666666666666667
+low,Draw-Raise-Hit and Roll,1,3
+low,Draw-Raise-Other,1,2.6666666666666665
+low,Draw-Take-out-Clearing,1,4
+low,Draw-Take-out-Other,1,3
+low,Draw-Wick-Double Take-out,1,2
+low,Draw-Wick-Hit and Roll,1,3.3333333333333335
+low,Draw-Wick-Wick,1,1.6666666666666667
+low,Freeze-Draw-Draw,1,4
+low,Guard-Draw-Guard,1,4
+low,Guard-Draw-Other,1,2
+low,Guard-Guard-Double Take-out,1,3.3333333333333335
+low,Guard-Guard-Draw,1,2.3333333333333335
+low,Guard-Hit and Roll-Take-out,1,3.6666666666666665
+low,Guard-Raise-Guard,1,3.6666666666666665
+low,Guard-Raise-Raise,1,3
+low,Guard-Take-out-Draw,1,2
+low,Guard-Take-out-Hit and Roll,1,3.6666666666666665
+low,Other-Draw-Draw,1,3.3333333333333335
+low,Raise-Clearing-Clearing,1,4
+low,Raise-Double Take-out-Other,1,2.3333333333333335
+low,Raise-Draw-Freeze,1,3.3333333333333335
+low,Raise-Draw-Guard,1,3.6666666666666665
+low,Raise-Hit and Roll-Raise,1,3
+low,Raise-Raise-Clearing,1,2.3333333333333335
+low,Raise-Raise-Hit and Roll,1,2.6666666666666665
+low,Raise-Raise-Raise,1,2.6666666666666665
+low,Raise-Raise-Take-out,1,4
+low,Raise-Take-out-Raise,1,2.6666666666666665
+low,Raise-Take-out-Take-out,1,3.3333333333333335
+low,Wick-Clearing-Double Take-out,1,2.3333333333333335
+low,Wick-Draw-Guard,1,4
+low,Wick-Raise-Clearing,1,1.3333333333333333
+low,Wick-Raise-Other,1,2.3333333333333335
+low,Wick-Raise-Take-out,1,3
+low,Wick-Wick-Clearing,1,3.3333333333333335
+low,Wick-Wick-Raise,1,2.3333333333333335
+medium,Draw-Draw-Draw,986,3.251183231913455
+medium,Draw-Draw-Guard,264,3.5315656565656566
+medium,Draw-Draw-Raise,222,3.174174174174174
+medium,Draw-Draw-Double Take-out,189,2.9717813051146384
+medium,Draw-Raise-Draw,126,3.2142857142857144
+medium,Draw-Draw-Take-out,118,3.0310734463276834
+medium,Draw-Draw-Clearing,107,3.208722741433022
+medium,Draw-Draw-Other,102,2.552287581699346
+medium,Draw-Raise-Raise,100,3.13
+medium,Draw-Draw-Hit and Roll,83,3.0883534136546187
+medium,Draw-Clearing-Clearing,48,3.3333333333333335
+medium,Draw-Raise-Double Take-out,46,2.891304347826087
+medium,Draw-Clearing-Double Take-out,37,3.144144144144144
+medium,Draw-Double Take-out-Draw,32,3.1875
+medium,Draw-Double Take-out-Double Take-out,31,2.3870967741935485
+medium,Wick-Draw-Double Take-out,31,2.924731182795699
+medium,Draw-Raise-Guard,26,3.4743589743589745
+medium,Draw-Raise-Hit and Roll,26,3.1794871794871793
+medium,Raise-Draw-Draw,23,3.3333333333333335
+medium,Draw-Raise-Other,22,2.5606060606060606
+medium,Guard-Draw-Draw,22,2.909090909090909
+medium,Draw-Raise-Clearing,21,3.492063492063492
+medium,Draw-Raise-Take-out,18,3.148148148148148
+medium,Draw-Take-out-Take-out,18,2.888888888888889
+medium,Draw-Clearing-Take-out,17,3.156862745098039
+medium,Draw-Draw-Wick,17,3.372549019607843
+medium,Draw-Take-out-Draw,17,3.1960784313725488
+medium,Draw-Guard-Guard,16,3.8125
+medium,Draw-Guard-Draw,15,3.422222222222222
+medium,Draw-Hit and Roll-Draw,15,3.311111111111111
+medium,Raise-Draw-Take-out,15,3.3333333333333335
+medium,Raise-Draw-Raise,14,3.238095238095238
+medium,Wick-Draw-Take-out,14,2.9047619047619047
+medium,Draw-Other-Other,13,2.1794871794871793
+medium,Raise-Draw-Double Take-out,13,3.1538461538461537
+medium,Draw-Double Take-out-Clearing,12,2.9166666666666665
+medium,Draw-Other-Draw,12,3.111111111111111
+medium,Wick-Draw-Draw,12,3.2777777777777777
+medium,Draw-Clearing-Other,11,2.6363636363636362
+medium,Draw-Clearing-Raise,11,3.333333333333333
+medium,Draw-Take-out-Double Take-out,10,2.2666666666666666
+medium,Draw-Wick-Draw,10,3.2333333333333334
+medium,Wick-Draw-Hit and Roll,10,2.966666666666667
+medium,Draw-Double Take-out-Raise,9,2.851851851851852
+medium,Draw-Other-Double Take-out,9,2.7037037037037037
+medium,Draw-Other-Take-out,9,3.185185185185185
+medium,Raise-Raise-Double Take-out,9,2.5555555555555554
+medium,Draw-Clearing-Draw,8,3.0416666666666665
+medium,Draw-Double Take-out-Take-out,8,2.9583333333333335
+medium,Raise-Raise-Draw,8,3.4583333333333335
+medium,Raise-Raise-Raise,8,3.0416666666666665
+medium,Draw-Take-out-Other,7,3.238095238095238
+medium,Draw-Wick-Guard,7,3.4285714285714284
+medium,Front-Draw-Draw,7,3.238095238095238
+medium,Front-Draw-Guard,7,3.3333333333333335
+medium,Wick-Draw-Other,7,2.142857142857143
+medium,Draw-Double Take-out-Other,6,2.3333333333333335
+medium,Draw-Wick-Double Take-out,6,3.2777777777777777
+medium,Guard-Draw-Guard,6,3.4444444444444446
+medium,Raise-Clearing-Clearing,6,3.5
+medium,Raise-Draw-Hit and Roll,6,3.4444444444444446
+medium,Draw-Hit and Roll-Take-out,5,3.3333333333333335
+medium,Draw-Take-out-Hit and Roll,5,2.6666666666666665
+medium,Guard-Draw-Raise,5,3.2
+medium,Guard-Raise-Draw,5,3.466666666666667
+medium,Raise-Draw-Clearing,5,2.933333333333333
+medium,Draw-Clearing-Hit and Roll,4,2.6666666666666665
+medium,Draw-Double Take-out-Hit and Roll,4,2.5833333333333335
+medium,Draw-Draw-Front,4,3.833333333333333
+medium,Draw-Freeze-Draw,4,3.8333333333333335
+medium,Draw-Freeze-Guard,4,3.833333333333333
+medium,Draw-Guard-Raise,4,3.5
+medium,Draw-Other-Clearing,4,2.1666666666666665
+medium,Draw-Other-Raise,4,2
+medium,Draw-Raise-Wick,4,2.6666666666666665
+medium,Guard-Draw-Take-out,4,3.333333333333333
+medium,Raise-Raise-Hit and Roll,4,2.9166666666666665
+medium,Wick-Clearing-Clearing,4,3.5
+medium,Draw-Hit and Roll-Double Take-out,3,3.2222222222222223
+medium,Draw-Hit and Roll-Hit and Roll,3,3.2222222222222223
+medium,Draw-Take-out-Clearing,3,3.4444444444444446
+medium,Draw-Take-out-Guard,3,3.7777777777777777
+medium,Draw-Wick-Raise,3,3.2222222222222223
+medium,Guard-Draw-Double Take-out,3,3
+medium,Guard-Guard-Draw,3,2.888888888888889
+medium,Raise-Double Take-out-Double Take-out,3,2.4444444444444446
+medium,Raise-Draw-Guard,3,4
+medium,Raise-Draw-Other,3,2.7777777777777777
+medium,Raise-Wick-Take-out,3,3.3333333333333335
+medium,Wick-Raise-Hit and Roll,3,2.5555555555555554
+medium,Draw-Double Take-out-Wick,2,2.5
+medium,Draw-Guard-Take-out,2,2.666666666666667
+medium,Draw-Hit and Roll-Guard,2,3.3333333333333335
+medium,Draw-Hit and Roll-Other,2,1.1666666666666667
+medium,Draw-Other-Hit and Roll,2,3.166666666666667
+medium,Draw-Take-out-Raise,2,3.166666666666667
+medium,Draw-Wick-Wick,2,3.333333333333333
+medium,Freeze-Draw-Draw,2,3.6666666666666665
+medium,Front-Draw-Front,2,3.5
+medium,Front-Draw-Take-out,2,3.5
+medium,Front-Front-Front,2,3.833333333333333
+medium,Guard-Draw-Hit and Roll,2,3.166666666666667
+medium,Guard-Take-out-Double Take-out,2,3
+medium,Raise-Clearing-Double Take-out,2,4
+medium,Raise-Double Take-out-Draw,2,3.166666666666667
+medium,Raise-Double Take-out-Take-out,2,3.6666666666666665
+medium,Raise-Raise-Clearing,2,3.333333333333333
+medium,Raise-Raise-Take-out,2,4
+medium,Raise-Take-out-Double Take-out,2,1.5
+medium,Wick-Double Take-out-Double Take-out,2,3.166666666666667
+medium,Wick-Double Take-out-Other,2,1.3333333333333333
+medium,Wick-Draw-Raise,2,2.666666666666667
+medium,Wick-Guard-Double Take-out,2,3.166666666666667
+medium,Wick-Hit and Roll-Other,2,3
+medium,Wick-Raise-Draw,2,3.5
+medium,Wick-Raise-Raise,2,3.666666666666667
+medium,Wick-Take-out-Clearing,2,3.1666666666666665
+medium,Wick-Wick-Clearing,2,2.666666666666667
+medium,Wick-Wick-Wick,2,3.833333333333333
+medium,Clearing-Draw-Take-out,1,1.6666666666666667
+medium,Clearing-Wick-Take-out,1,1.6666666666666667
+medium,Draw-Clearing-Guard,1,1.3333333333333333
+medium,Draw-Double Take-out-Freeze,1,3.3333333333333335
+medium,Draw-Double Take-out-Guard,1,2.6666666666666665
+medium,Draw-Draw-Freeze,1,4
+medium,Draw-Freeze-Double Take-out,1,4
+medium,Draw-Freeze-Freeze,1,3.3333333333333335
+medium,Draw-Freeze-Other,1,1.3333333333333333
+medium,Draw-Front-Draw,1,4
+medium,Draw-Front-Guard,1,3.3333333333333335
+medium,Draw-Front-Take-out,1,4
+medium,Draw-Guard-Double Take-out,1,3.6666666666666665
+medium,Draw-Guard-Hit and Roll,1,4
+medium,Draw-Guard-Other,1,4
+medium,Draw-Hit and Roll-Clearing,1,4
+medium,Draw-Hit and Roll-Raise,1,3.6666666666666665
+medium,Draw-Raise-Freeze,1,2
+medium,Draw-Take-out-Wick,1,3
+medium,Draw-Wick-Clearing,1,2.3333333333333335
+medium,Draw-Wick-Hit and Roll,1,3
+medium,Draw-Wick-Take-out,1,2.6666666666666665
+medium,Freeze-Clearing-Clearing,1,3.3333333333333335
+medium,Freeze-Draw-Raise,1,4
+medium,Freeze-Draw-Take-out,1,2.3333333333333335
+medium,Freeze-Freeze-Clearing,1,4
+medium,Freeze-Freeze-Draw,1,3.3333333333333335
+medium,Freeze-Raise-Freeze,1,3.3333333333333335
+medium,Front-Draw-Clearing,1,1.3333333333333333
+medium,Front-Draw-Other,1,2
+medium,Front-Draw-Raise,1,3.6666666666666665
+medium,Front-Front-Draw,1,3.3333333333333335
+medium,Front-Guard-Guard,1,4
+medium,Front-Raise-Draw,1,2.6666666666666665
+medium,Guard-Draw-Clearing,1,2.3333333333333335
+medium,Guard-Draw-Freeze,1,3
+medium,Guard-Draw-Other,1,3.6666666666666665
+medium,Guard-Freeze-Freeze,1,3.3333333333333335
+medium,Guard-Hit and Roll-Double Take-out,1,4
+medium,Guard-Hit and Roll-Raise,1,3.3333333333333335
+medium,Guard-Hit and Roll-Take-out,1,3.6666666666666665
+medium,Guard-Raise-Double Take-out,1,3
+medium,Guard-Raise-Hit and Roll,1,2.6666666666666665
+medium,Guard-Raise-Raise,1,1.6666666666666667
+medium,Guard-Raise-Take-out,1,4
+medium,Guard-Take-out-Draw,1,3.6666666666666665
+medium,Guard-Take-out-Take-out,1,4
+medium,Other-Draw-Clearing,1,5.666666666666667
+medium,Other-Raise-Double Take-out,1,1.6666666666666667
+medium,Raise-Clearing-Raise,1,2.6666666666666665
+medium,Raise-Clearing-Take-out,1,3.3333333333333335
+medium,Raise-Double Take-out-Hit and Roll,1,3
+medium,Raise-Double Take-out-Wick,1,3
+medium,Raise-Draw-Freeze,1,3.6666666666666665
+medium,Raise-Freeze-Draw,1,3.6666666666666665
+medium,Raise-Freeze-Take-out,1,4
+medium,Raise-Guard-Raise,1,4
+medium,Raise-Hit and Roll-Raise,1,2.3333333333333335
+medium,Raise-Other-Guard,1,4
+medium,Raise-Other-Other,1,2.6666666666666665
+medium,Raise-Other-Raise,1,4
+medium,Raise-Raise-Guard,1,4
+medium,Raise-Raise-Other,1,4
+medium,Raise-Take-out-Raise,1,2.6666666666666665
+medium,Raise-Wick-Draw,1,4
+medium,Raise-Wick-Hit and Roll,1,3.6666666666666665
+medium,Take-out-Take-out-Take-out,1,3.6666666666666665
+medium,Wick-Clearing-Double Take-out,1,4
+medium,Wick-Clearing-Raise,1,2.3333333333333335
+medium,Wick-Clearing-Wick,1,3
+medium,Wick-Double Take-out-Draw,1,2.3333333333333335
+medium,Wick-Freeze-Double Take-out,1,2.6666666666666665
+medium,Wick-Hit and Roll-Double Take-out,1,3.3333333333333335
+medium,Wick-Other-Draw,1,2
+medium,Wick-Raise-Clearing,1,2.6666666666666665
+medium,Wick-Raise-Double Take-out,1,2
+medium,Wick-Take-out-Other,1,4
+medium,Wick-Wick-Double Take-out,1,3.3333333333333335
+medium,Wick-Wick-Hit and Roll,1,2.6666666666666665
+medium,Wick-Wick-Take-out,1,3.6666666666666665
+high,Draw-Draw-Draw,225,3.2666666666666666
+high,Draw-Draw-Guard,62,3.6666666666666665
+high,Draw-Draw-Raise,57,3.309941520467836
+high,Draw-Draw-Take-out,34,3.049019607843137
+high,Draw-Draw-Double Take-out,31,2.924731182795699
+high,Draw-Raise-Draw,30,3.388888888888889
+high,Draw-Draw-Other,25,2.8933333333333335
+high,Draw-Draw-Hit and Roll,23,3.217391304347826
+high,Draw-Draw-Clearing,22,3.106060606060606
+high,Draw-Raise-Raise,22,3.3333333333333335
+high,Draw-Raise-Guard,13,3.5128205128205128
+high,Draw-Raise-Double Take-out,11,2.696969696969697
+high,Draw-Double Take-out-Double Take-out,10,2.7
+high,Draw-Double Take-out-Draw,10,2.8333333333333335
+high,Draw-Take-out-Take-out,10,3.433333333333333
+high,Draw-Clearing-Clearing,9,3.4444444444444446
+high,Draw-Clearing-Double Take-out,9,3.2962962962962963
+high,Raise-Draw-Draw,9,3.555555555555556
+high,Draw-Clearing-Draw,8,3
+high,Draw-Raise-Take-out,8,3.4166666666666665
+high,Draw-Take-out-Draw,8,3.4166666666666665
+high,Raise-Draw-Raise,8,3.25
+high,Draw-Double Take-out-Other,6,2.5555555555555554
+high,Draw-Guard-Draw,6,3.8333333333333335
+high,Draw-Hit and Roll-Draw,6,3.2777777777777777
+high,Draw-Clearing-Take-out,5,3.1333333333333333
+high,Draw-Double Take-out-Raise,5,2.4
+high,Draw-Other-Other,5,2.2666666666666666
+high,Wick-Draw-Draw,5,3.3333333333333335
+high,Draw-Raise-Clearing,4,2.9166666666666665
+high,Draw-Raise-Hit and Roll,4,3.5
+high,Draw-Take-out-Double Take-out,4,3
+high,Draw-Take-out-Hit and Roll,4,3.25
+high,Draw-Wick-Double Take-out,4,3
+high,Guard-Draw-Draw,4,3.5
+high,Raise-Draw-Double Take-out,4,3.5
+high,Wick-Draw-Double Take-out,4,2.9166666666666665
+high,Draw-Draw-Wick,3,3.5555555555555554
+high,Draw-Hit and Roll-Hit and Roll,3,2.6666666666666665
+high,Draw-Other-Hit and Roll,3,2.888888888888889
+high,Draw-Raise-Other,3,2.2222222222222223
+high,Front-Draw-Guard,3,3.888888888888889
+high,Front-Front-Draw,3,3.5555555555555554
+high,Raise-Clearing-Clearing,3,3.5555555555555554
+high,Raise-Draw-Take-out,3,2.888888888888889
+high,Wick-Draw-Hit and Roll,3,3.111111111111111
+high,Draw-Clearing-Other,2,2.5
+high,Draw-Double Take-out-Clearing,2,3
+high,Draw-Double Take-out-Hit and Roll,2,3.6666666666666665
+high,Draw-Double Take-out-Take-out,2,3
+high,Draw-Draw-Front,2,3.3333333333333335
+high,Draw-Guard-Guard,2,3.5
+high,Draw-Guard-Take-out,2,3.666666666666667
+high,Draw-Hit and Roll-Other,2,3.1666666666666665
+high,Draw-Other-Draw,2,2.833333333333333
+high,Draw-Raise-Wick,2,3.3333333333333335
+high,Draw-Take-out-Raise,2,3.666666666666667
+high,Draw-Wick-Draw,2,3.6666666666666665
+high,Draw-Wick-Other,2,3.166666666666667
+high,Draw-Wick-Take-out,2,3.6666666666666665
+high,Front-Draw-Double Take-out,2,3.3333333333333335
+high,Front-Draw-Draw,2,2.333333333333333
+high,Front-Draw-Front,2,3
+high,Front-Front-Front,2,3.666666666666667
+high,Raise-Draw-Other,2,2.166666666666667
+high,Raise-Hit and Roll-Hit and Roll,2,4
+high,Raise-Raise-Double Take-out,2,3
+high,Raise-Raise-Raise,2,3.833333333333333
+high,Raise-Take-out-Draw,2,3.833333333333333
+high,Wick-Clearing-Clearing,2,3.666666666666667
+high,Wick-Draw-Take-out,2,3.1666666666666665
+high,Wick-Wick-Double Take-out,2,2.333333333333333
+high,Clearing-Clearing-Clearing,1,4
+high,Draw-Clearing-Raise,1,3.6666666666666665
+high,Draw-Double Take-out-Wick,1,2.3333333333333335
+high,Draw-Freeze-Draw,1,2
+high,Draw-Freeze-Freeze,1,3.6666666666666665
+high,Draw-Guard-Clearing,1,4
+high,Draw-Hit and Roll-Double Take-out,1,3.3333333333333335
+high,Draw-Hit and Roll-Take-out,1,3
+high,Draw-Other-Clearing,1,2.6666666666666665
+high,Draw-Other-Take-out,1,1.3333333333333333
+high,Draw-Take-out-Clearing,1,4
+high,Draw-Take-out-Other,1,3.6666666666666665
+high,Draw-Wick-Guard,1,3.6666666666666665
+high,Draw-Wick-Hit and Roll,1,3.3333333333333335
+high,Freeze-Raise-Take-out,1,2.6666666666666665
+high,Front-Draw-Hit and Roll,1,2.3333333333333335
+high,Front-Draw-Other,1,3.3333333333333335
+high,Front-Draw-Take-out,1,4
+high,Front-Guard-Draw,1,2.6666666666666665
+high,Front-Guard-Guard,1,3.3333333333333335
+high,Guard-Clearing-Raise,1,2
+high,Guard-Draw-Guard,1,3.6666666666666665
+high,Guard-Draw-Hit and Roll,1,3.6666666666666665
+high,Guard-Draw-Raise,1,3.6666666666666665
+high,Guard-Guard-Guard,1,4
+high,Raise-Clearing-Double Take-out,1,3.3333333333333335
+high,Raise-Clearing-Other,1,3.3333333333333335
+high,Raise-Double Take-out-Other,1,3.3333333333333335
+high,Raise-Draw-Clearing,1,4
+high,Raise-Hit and Roll-Guard,1,3.6666666666666665
+high,Raise-Other-Other,1,2
+high,Raise-Raise-Draw,1,3.6666666666666665
+high,Raise-Raise-Guard,1,4
+high,Raise-Raise-Other,1,2.6666666666666665
+high,Raise-Raise-Take-out,1,3.6666666666666665
+high,Raise-Take-out-Raise,1,4
+high,Raise-Take-out-Take-out,1,2.3333333333333335
+high,Take-out-Freeze-Other,1,0
+high,Wick-Clearing-Draw,1,4
+high,Wick-Clearing-Raise,1,1.3333333333333333
+high,Wick-Clearing-Take-out,1,2.6666666666666665
+high,Wick-Double Take-out-Wick,1,3
+high,Wick-Draw-Guard,1,4
+high,Wick-Draw-Other,1,1.3333333333333333
+high,Wick-Hit and Roll-Draw,1,3.6666666666666665
+high,Wick-Raise-Other,1,3.3333333333333335
+high,Wick-Take-out-Draw,1,3.3333333333333335
+high,Wick-Wick-Clearing,1,1.6666666666666667
+high,Wick-Wick-Other,1,2
+very_high,Draw-Draw-Draw,100,3.3
+very_high,Draw-Draw-Guard,36,3.444444444444444
+very_high,Draw-Draw-Take-out,32,3.34375
+very_high,Draw-Draw-Raise,25,3.546666666666667
+very_high,Draw-Draw-Double Take-out,20,3.0166666666666666
+very_high,Wick-Clearing-Clearing,19,3
+very_high,Draw-Raise-Draw,18,3.4074074074074074
+very_high,Draw-Raise-Raise,16,3.1875
+very_high,Draw-Clearing-Clearing,13,3.769230769230769
+very_high,Draw-Draw-Other,13,2.7948717948717947
+very_high,Draw-Guard-Guard,11,3.4242424242424243
+very_high,Front-Draw-Draw,11,3.121212121212121
+very_high,Draw-Draw-Clearing,9,2.8518518518518516
+very_high,Draw-Draw-Hit and Roll,9,3.2962962962962963
+very_high,Draw-Take-out-Draw,9,3.3703703703703702
+very_high,Draw-Double Take-out-Double Take-out,8,3.0416666666666665
+very_high,Front-Front-Front,8,3.75
+very_high,Draw-Take-out-Take-out,7,3.238095238095238
+very_high,Draw-Raise-Hit and Roll,6,2.9444444444444446
+very_high,Draw-Raise-Take-out,6,3
+very_high,Front-Draw-Guard,6,3.5555555555555554
+very_high,Front-Front-Draw,6,3.6666666666666665
+very_high,Guard-Draw-Guard,6,3.5555555555555554
+very_high,Draw-Clearing-Double Take-out,5,3.466666666666667
+very_high,Draw-Clearing-Take-out,5,3.6666666666666665
+very_high,Draw-Raise-Double Take-out,5,3.3333333333333335
+very_high,Draw-Take-out-Double Take-out,5,2.466666666666667
+very_high,Guard-Draw-Draw,5,3.466666666666667
+very_high,Draw-Double Take-out-Clearing,4,3.5833333333333335
+very_high,Draw-Hit and Roll-Take-out,4,3.25
+very_high,Draw-Take-out-Clearing,4,3.75
+very_high,Raise-Draw-Draw,4,3.6666666666666665
+very_high,Raise-Raise-Draw,4,3.5
+very_high,Wick-Draw-Double Take-out,4,3.3333333333333335
+very_high,Wick-Draw-Take-out,4,3.5
+very_high,Draw-Clearing-Draw,3,3.7777777777777777
+very_high,Draw-Clearing-Other,3,3.111111111111111
+very_high,Draw-Double Take-out-Draw,3,3.444444444444444
+very_high,Draw-Guard-Draw,3,3.5555555555555554
+very_high,Draw-Hit and Roll-Draw,3,3.2222222222222223
+very_high,Draw-Raise-Clearing,3,3.3333333333333335
+very_high,Draw-Raise-Guard,3,3.7777777777777777
+very_high,Front-Guard-Draw,3,3.444444444444444
+very_high,Front-Raise-Draw,3,2.555555555555556
+very_high,Guard-Guard-Guard,3,3.3333333333333335
+very_high,Raise-Clearing-Clearing,3,3.111111111111111
+very_high,Raise-Draw-Raise,3,2.2222222222222223
+very_high,Raise-Raise-Hit and Roll,3,2.888888888888889
+very_high,Draw-Clearing-Hit and Roll,2,3.166666666666667
+very_high,Draw-Clearing-Raise,2,3.5
+very_high,Draw-Double Take-out-Hit and Roll,2,3.166666666666667
+very_high,Draw-Double Take-out-Take-out,2,3.833333333333333
+very_high,Draw-Draw-Wick,2,3.3333333333333335
+very_high,Draw-Guard-Hit and Roll,2,3.6666666666666665
+very_high,Draw-Other-Hit and Roll,2,2.5
+very_high,Draw-Other-Other,2,2.333333333333333
+very_high,Draw-Take-out-Hit and Roll,2,3
+very_high,Draw-Take-out-Raise,2,2.666666666666667
+very_high,Draw-Wick-Take-out,2,4
+very_high,Front-Front-Guard,2,3.5
+very_high,Raise-Draw-Clearing,2,3.166666666666667
+very_high,Raise-Draw-Hit and Roll,2,3.1666666666666665
+very_high,Raise-Draw-Other,2,1.6666666666666667
+very_high,Raise-Draw-Take-out,2,3.666666666666667
+very_high,Raise-Raise-Raise,2,3.666666666666667
+very_high,Wick-Clearing-Double Take-out,2,2.333333333333333
+very_high,Wick-Take-out-Clearing,2,3.3333333333333335
+very_high,Wick-Take-out-Take-out,2,0.8333333333333334
+very_high,Draw-Clearing-Wick,1,4
+very_high,Draw-Double Take-out-Other,1,1.3333333333333333
+very_high,Draw-Draw-Front,1,2.6666666666666665
+very_high,Draw-Front-Front,1,3.6666666666666665
+very_high,Draw-Front-Hit and Roll,1,3.6666666666666665
+very_high,Draw-Guard-Double Take-out,1,3
+very_high,Draw-Guard-Other,1,3
+very_high,Draw-Guard-Take-out,1,4
+very_high,Draw-Hit and Roll-Double Take-out,1,3.6666666666666665
+very_high,Draw-Hit and Roll-Guard,1,3.6666666666666665
+very_high,Draw-Hit and Roll-Raise,1,3.3333333333333335
+very_high,Draw-Other-Clearing,1,2.6666666666666665
+very_high,Draw-Other-Double Take-out,1,2.3333333333333335
+very_high,Draw-Other-Draw,1,3
+very_high,Draw-Raise-Other,1,3.3333333333333335
+very_high,Draw-Raise-Wick,1,2
+very_high,Draw-Wick-Double Take-out,1,2.6666666666666665
+very_high,Draw-Wick-Draw,1,2.3333333333333335
+very_high,Draw-Wick-Other,1,3.3333333333333335
+very_high,Draw-Wick-Raise,1,3.3333333333333335
+very_high,Freeze-Draw-Draw,1,4
+very_high,Freeze-Front-Double Take-out,1,3.3333333333333335
+very_high,Front-Draw-Hit and Roll,1,3
+very_high,Front-Draw-Raise,1,2.6666666666666665
+very_high,Front-Front-Double Take-out,1,3
+very_high,Front-Guard-Guard,1,4
+very_high,Front-Raise-Double Take-out,1,2.6666666666666665
+very_high,Front-Wick-Draw,1,2.6666666666666665
+very_high,Guard-Draw-Double Take-out,1,3.6666666666666665
+very_high,Guard-Draw-Take-out,1,4
+very_high,Guard-Draw-Wick,1,3.6666666666666665
+very_high,Guard-Freeze-Draw,1,4
+very_high,Guard-Front-Draw,1,3.3333333333333335
+very_high,Guard-Guard-Clearing,1,3.3333333333333335
+very_high,Guard-Guard-Draw,1,4
+very_high,Guard-Take-out-Draw,1,1.6666666666666667
+very_high,Guard-Take-out-Hit and Roll,1,3.6666666666666665
+very_high,Other-Clearing-Clearing,1,4.333333333333333
+very_high,Raise-Clearing-Double Take-out,1,3.3333333333333335
+very_high,Raise-Double Take-out-Clearing,1,3.6666666666666665
+very_high,Raise-Double Take-out-Other,1,3
+very_high,Raise-Draw-Double Take-out,1,4
+very_high,Raise-Guard-Hit and Roll,1,4
+very_high,Raise-Hit and Roll-Double Take-out,1,1.3333333333333333
+very_high,Raise-Hit and Roll-Draw,1,4
+very_high,Raise-Other-Other,1,1.6666666666666667
+very_high,Raise-Raise-Double Take-out,1,3
+very_high,Raise-Raise-Guard,1,4
+very_high,Raise-Take-out-Draw,1,3.6666666666666665
+very_high,Raise-Take-out-Guard,1,2.6666666666666665
+very_high,Raise-Take-out-Other,1,3.6666666666666665
+very_high,Raise-Take-out-Wick,1,0.6666666666666666
+very_high,Raise-Wick-Hit and Roll,1,2.6666666666666665
+very_high,Take-out-Take-out-Draw,1,2
+very_high,Wick-Clearing-Draw,1,2
+very_high,Wick-Clearing-Hit and Roll,1,3.3333333333333335
+very_high,Wick-Clearing-Other,1,4.333333333333333
+very_high,Wick-Clearing-Take-out,1,4
+very_high,Wick-Double Take-out-Clearing,1,2.3333333333333335
+very_high,Wick-Double Take-out-Double Take-out,1,2
+very_high,Wick-Double Take-out-Take-out,1,3.6666666666666665
+very_high,Wick-Draw-Hit and Roll,1,2.3333333333333335
+very_high,Wick-Draw-Wick,1,3
+very_high,Wick-Other-Clearing,1,3.3333333333333335
+very_high,Wick-Other-Double Take-out,1,3.3333333333333335
+very_high,Wick-Raise-Draw,1,2
+very_high,Wick-Raise-Hit and Roll,1,2.3333333333333335
+very_high,Wick-Take-out-Raise,1,4
+very_high,Wick-Wick-Double Take-out,1,1.3333333333333333
+very_high,Wick-Wick-Wick,1,2

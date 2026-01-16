@@ -1,158 +1,107 @@
 # ==============================================================================
-# REPORT STATISTICS GENERATOR (UPDATED WITH WPA ANALYSIS)
+# REPORT STATISTICS GENERATOR (ROBUST)
+# Run this to get all exact numbers for your Executive Report
 # ==============================================================================
 
 library(tidyverse)
+library(broom)
+library(pROC)
 
+# 1. LOAD DATA & RECOVER SCORES (Safety First) ----------------------------
 pp_data <- readRDS("pp_analysis_ready.rds")
+
+# Recovery Block: Ensure 'Result' (points) is present
+raw_ends <- read_csv("data/raw/Ends.csv", show_col_types = FALSE) %>%
+  mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
+  select(match_id, EndID, TeamID, Result)
+
+if("Result" %in% colnames(pp_data)) pp_data <- select(pp_data, -Result)
+
+pp_data <- pp_data %>%
+  left_join(raw_ends, by = c("match_id", "EndID", "TeamID")) %>%
+  filter(PowerPlay == 1)
+
+# 2. LOAD & PREP TEAM PROFILES --------------------------------------------
 team_profiles <- readRDS("team_profiles.rds")
-team_wpa <- readRDS("team_wpa_analysis.rds")
-comparison <- readRDS("ppcs_wpa_comparison.rds")
 
-pp_only <- pp_data %>% filter(PowerPlay == 1)
+# Recalculate PPCS and Sort (Ensures rankings are correct)
+if(!"ppcs" %in% colnames(team_profiles)) {
+  team_profiles <- team_profiles %>%
+    mutate(ppcs = mean_points_high - mean_points_low)
+}
 
-# ==============================================================================
-# DATA OVERVIEW
-# ==============================================================================
-
-print("--- DATA OVERVIEW ---")
-print(paste("Total power play ends:", nrow(pp_only)))
-print(paste("Teams analyzed:", nrow(team_profiles)))
+team_profiles <- team_profiles %>%
+  arrange(desc(ppcs)) # Sort Best to Worst
 
 # ==============================================================================
-# SCORING BY PRESSURE
+# PRINT REPORT STATISTICS
 # ==============================================================================
 
-print("--- SCORING BY PRESSURE ---")
-scoring <- pp_only %>%
+cat("\n══════════════════════════════════════════════════════════════\n")
+cat("📊 FINAL REPORT STATISTICS (COPY THESE)\n")
+cat("══════════════════════════════════════════════════════════════\n\n")
+
+# --- SECTION 1: DATA OVERVIEW ---
+cat("--- 1. DATA OVERVIEW ---\n")
+cat("Total Power Play Ends Analyzed:", nrow(pp_data), "\n")
+cat("Total Teams Analyzed:", nrow(team_profiles), "\n")
+cat("Average Pressure Score (0-3):", round(mean(pp_data$pressure_index_norm, na.rm=TRUE), 2), "\n\n")
+
+# --- SECTION 2: SCORING TRENDS (The Clutch Paradox) ---
+cat("--- 2. THE CLUTCH PARADOX (Scoring by Pressure) ---\n")
+scoring <- pp_data %>%
   group_by(pressure_combined) %>%
   summarize(
-    n = n(),
-    mean_pts = round(mean(Result, na.rm = TRUE), 2),
-    success_rate = round(mean(Result >= 2, na.rm = TRUE) * 100, 1),
-    .groups = "drop"
+    mean_pts = mean(Result, na.rm = TRUE),
+    success_rate = mean(Result >= 2, na.rm = TRUE) * 100
   )
-print(scoring)
 
-low <- scoring %>% filter(pressure_combined == "low") %>% pull(mean_pts)
-high <- scoring %>% filter(pressure_combined == "high") %>% pull(mean_pts)
-very_high <- scoring %>% filter(pressure_combined == "very_high") %>% pull(mean_pts)
-change <- round((very_high - low) / low * 100, 1)
+low_pts <- scoring %>% filter(pressure_combined == "low") %>% pull(mean_pts)
+high_pts <- scoring %>% filter(pressure_combined == "very_high") %>% pull(mean_pts)
+pct_change <- ((high_pts - low_pts) / low_pts) * 100
 
-print(paste("Low pressure avg:", low, "pts"))
-print(paste("High pressure avg:", high, "pts"))
-print(paste("Very high pressure avg:", very_high, "pts"))
-print(paste("Change low to very high:", change, "%"))
+cat("Avg Points (Low Pressure):      ", round(low_pts, 2), "\n")
+cat("Avg Points (Very High Pressure):", round(high_pts, 2), "\n")
+cat("Percent Change:                 ", ifelse(pct_change > 0, "+", ""), round(pct_change, 1), "% (Scoring INCREASES)\n\n", sep="")
 
-# ==============================================================================
-# PPCS RANKINGS
-# ==============================================================================
-
-print("--- PPCS RANKINGS ---")
-
-print("TOP 3 CLUTCH:")
-top3 <- team_profiles %>% slice_head(n = 3)
-print(top3 %>% select(NOC, ppcs))
-
-print("BOTTOM 3 CHOKERS:")
-bot3 <- team_profiles %>% slice_tail(n = 3) %>% arrange(ppcs)
-print(bot3 %>% select(NOC, ppcs))
-
-print(paste("Teams better under pressure:", sum(team_profiles$ppcs > 0)))
-print(paste("Teams worse under pressure:", sum(team_profiles$ppcs < 0)))
-
-# ==============================================================================
-# MODEL STATS
-# ==============================================================================
-
-if(file.exists("model_evaluation.rds")) {
-  model_eval <- readRDS("model_evaluation.rds")
-  print("--- MODEL STATS ---")
-  print(paste("Accuracy:", round(model_eval$accuracy * 100, 1), "%"))
-  print(paste("AUC:", round(model_eval$auc, 3)))
+# --- SECTION 3: RANKINGS (Heroes & Villains) ---
+cat("--- 3. TEAM RANKINGS (PPCS) ---\n")
+cat("Top 3 Clutch Teams (Best under pressure):\n")
+top3 <- head(team_profiles, 3)
+for(i in 1:3) {
+  cat(i, ". ", top3$NOC[i], " (+", round(top3$ppcs[i], 2), " pts)\n", sep="")
 }
 
-# ==============================================================================
-# WPA ANALYSIS (NEW)
-# ==============================================================================
+cat("\nBottom 3 Teams (Worst under pressure):\n")
+bot3 <- tail(team_profiles, 3) %>% arrange(ppcs) # Sort asc for bottom
+for(i in 1:3) {
+  cat(i, ". ", bot3$NOC[i], " (", round(bot3$ppcs[i], 2), " pts)\n", sep="")
+}
 
-print("--- WPA ANALYSIS ---")
-
-print("TOP 3 BY WIN PROBABILITY IMPACT:")
-top_wpa <- team_wpa %>% arrange(desc(avg_wpa)) %>% head(3)
-print(top_wpa %>% select(NOC, n_pp, avg_wpa))
-
-print("BOTTOM 3 BY WIN PROBABILITY IMPACT:")
-bot_wpa <- team_wpa %>% arrange(avg_wpa) %>% head(3)
-print(bot_wpa %>% select(NOC, n_pp, avg_wpa))
-
-cor_value <- cor(comparison$ppcs, comparison$avg_wpa, use = "complete.obs")
-print(paste("PPCS vs WPA correlation:", round(cor_value, 3)))
-
-# ==============================================================================
-# TRUE CLUTCH TEAMS (HIGH PPCS + HIGH WPA)
-# ==============================================================================
-
-print("--- TRUE CLUTCH TEAMS (High PPCS AND High WPA) ---")
-true_clutch <- comparison %>% 
-  filter(ppcs > 0, avg_wpa > 0) %>% 
-  select(NOC, ppcs, avg_wpa) %>% 
-  arrange(desc(ppcs))
-print(true_clutch)
-
-print("--- FALSE CLUTCH (High PPCS but Negative WPA) ---")
-false_clutch <- comparison %>% 
-  filter(ppcs > 0, avg_wpa < 0) %>% 
-  select(NOC, ppcs, avg_wpa)
-if(nrow(false_clutch) > 0) {
-  print(false_clutch)
+# --- SECTION 4: MODEL PERFORMANCE ---
+cat("\n--- 4. PREDICTIVE MODEL STATS ---\n")
+# Calculate fresh to ensure accuracy
+if(file.exists("final_predictive_model.rds")) {
+  model <- readRDS("final_predictive_model.rds")
+  
+  # Re-create simple evaluation data (same logic as Day 12)
+  # We need the source data for the model. We'll grab coefficients directly.
+  model_tidy <- tidy(model)
+  
+  # Extract key Odds Ratios for the report
+  shot2_guard <- model_tidy %>% filter(term == "shot2Guard_Setup") %>% mutate(or = exp(estimate)) %>% pull(or)
+  shot1_guard <- model_tidy %>% filter(term == "shot1Guard_Setup") %>% mutate(or = exp(estimate)) %>% pull(or)
+  
+  cat("Key Finding 1 (Shot 2 Guard): Odds Ratio =", round(shot2_guard, 2), 
+      "(", round((shot2_guard-1)*100, 0), "% increase in success)\n")
+  cat("Key Finding 2 (Shot 1 Guard): Odds Ratio =", round(shot1_guard, 2), 
+      "(", round((1-shot1_guard)*100, 0), "% DECREASE in success)\n")
+  
+  # Model Accuracy (approximate from confusion matrix logic if data available, else just AIC)
+  cat("Model AIC:", round(model$aic, 1), "\n")
+  
 } else {
-  print("None")
+  cat("Model file not found. (Check working directory)\n")
 }
 
-print("--- UNDERPERFORMERS (Negative PPCS and Negative WPA) ---")
-underperformers <- comparison %>%
-  filter(ppcs < 0, avg_wpa < 0) %>%
-  select(NOC, ppcs, avg_wpa) %>%
-  arrange(ppcs)
-print(underperformers)
-
-# ==============================================================================
-# PRESSURE RESPONSE SUMMARY
-# ==============================================================================
-
-print("--- PRESSURE RESPONSE PATTERNS ---")
-
-pp_with_noc <- pp_only
-if(!"NOC" %in% colnames(pp_with_noc)) {
-  competitors <- read_csv("data/raw/Competitors.csv", show_col_types = FALSE) %>%
-    select(TeamID, NOC) %>% distinct() %>% mutate(TeamID = as.numeric(TeamID))
-  pp_with_noc <- pp_only %>%
-    mutate(TeamID = as.numeric(TeamID)) %>%
-    left_join(competitors, by = "TeamID")
-}
-
-pressure_slopes <- pp_with_noc %>%
-  filter(!is.na(NOC)) %>%
-  mutate(pressure_num = case_when(
-    pressure_combined == "low" ~ 1,
-    pressure_combined == "medium" ~ 2,
-    pressure_combined == "high" ~ 3,
-    pressure_combined == "very_high" ~ 4
-  )) %>%
-  group_by(NOC) %>%
-  filter(n() >= 5) %>%
-  summarize(
-    slope = cor(pressure_num, Result, use = "complete.obs"),
-    .groups = "drop"
-  ) %>%
-  filter(!is.na(slope)) %>%
-  arrange(desc(slope))
-
-print("RISERS (Performance increases with pressure):")
-print(head(pressure_slopes, 5))
-
-print("FOLDERS (Performance decreases with pressure):")
-print(tail(pressure_slopes, 5))
-
-print("--- DONE ---")
+cat("\n══════════════════════════════════════════════════════════════\n")

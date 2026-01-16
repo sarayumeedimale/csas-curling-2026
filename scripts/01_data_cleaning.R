@@ -41,40 +41,41 @@ master_data <- master_data %>%
     select(match_id, EndID, TeamID, my_score_before, score_diff)
 head(game_state_final) ## interpretation: Before End 1 both teams starts with 0-0. Team 20 leads 1-0 entering End 2, then Team 22 scores 3, score_diff shows 1-3 deficit.
 
-# STEP 2: Calculate Hammer Possession
+# STEP 2: Calculate Hammer Possession (CORRECTED FOR MIXED DOUBLES)
 ends_clean <- ends %>%
   mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_"))
-  # LSFE = 1 means TeamID1 has hammer. LSFE = 0 means TeamID2 has hammer.
-  hammer_start <- games %>%
-    mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
-    select(match_id, TeamID1, TeamID2, LSFE)
-  # Apply logic to calculate hammer for all ends
-  hammer_logic <- ends_clean %>%
-    left_join(ends_clean %>% select(match_id, EndID, TeamID, Result), 
-              by = c("match_id", "EndID"), 
-              suffix = c("", "_opp"),
-              relationship = "many-to-many") %>%
-    filter(TeamID != TeamID_opp) %>%
-  # Join with starting info so we know who started with it
+
+hammer_start <- games %>%
+  mutate(match_id = paste(CompetitionID, SessionID, GameID, sep = "_")) %>%
+  select(match_id, TeamID1, TeamID2, LSFE)
+
+hammer_logic <- ends_clean %>%
+  left_join(ends_clean %>% select(match_id, EndID, TeamID, Result), 
+            by = c("match_id", "EndID"), 
+            suffix = c("", "_opp"),
+            relationship = "many-to-many") %>%
+  filter(TeamID != TeamID_opp) %>%
   left_join(hammer_start, by = "match_id") %>%
-  # Group by match (so we look at ends in order for THAT game only)
   group_by(match_id, TeamID) %>%
   arrange(EndID, .by_group = TRUE) %>%
-  # Determine who "Should" have the hammer in this specific end
   mutate(hammer_owner_raw = case_when(
-      # SCENARIO A: First End; If LSFE matches the row's TeamID, they have it.
-      EndID == 1 & LSFE == 1 ~ TeamID1,
-      EndID == 1 & LSFE == 0 ~ TeamID2,
-      # SCENARIO B: End 2 or later
-      lag(Result, default=0) > 0 ~ TeamID_opp,
-      lag(Result_opp, default=0) > 0 ~ TeamID,
-     # Blank End (0-0)
-      TRUE ~ NA_real_)) %>%
-  # If it was a blank end (NA), 'fill' copies value from row above to correctly keep the hammer with whoever had it last.
+    # 1. First End Logic
+    EndID == 1 & LSFE == 1 ~ TeamID1,
+    EndID == 1 & LSFE == 0 ~ TeamID2,
+    
+    # 2. Standard Scoring Logic (Scorer loses hammer)
+    lag(Result, default=0) > 0 ~ TeamID_opp,
+    lag(Result_opp, default=0) > 0 ~ TeamID,
+    
+    # 3. BLANK END LOGIC (Mixed Doubles Specific)
+    # If the score was 0-0, the hammer SWAPS.
+    lag(Result, default=0) == 0 & lag(Result_opp, default=0) == 0 ~ TeamID_opp,
+    
+    TRUE ~ NA_real_
+  )) %>%
   fill(hammer_owner_raw, .direction = "down") %>%
-    mutate(has_hammer = (TeamID == hammer_owner_raw),ends_remaining = 8 - EndID) %>%
-    select(match_id, EndID, TeamID, has_hammer, ends_remaining)
-head(hammer_logic) # Tracks turn-by-turn hammer possession, (score -> lose hammer) & (blank ends -> keep hammer).
+  mutate(has_hammer = (TeamID == hammer_owner_raw), ends_remaining = 8 - EndID) %>%
+  select(match_id, EndID, TeamID, has_hammer, ends_remaining)
 
 
 # -----------------------------------------------------------------------------
@@ -95,9 +96,9 @@ master_data <- master_data %>%
   mutate(across(starts_with("stone_"), ~ ifelse(. == 4095 | . == 0, NA, .)))
 
 # [cite_start]3. Create the Power Play Subset [cite: 170-173]
-# We only care about ends where the PowerPlay flag is active.
+# We strictly filter for 1 or 2 (as per data dictionary)
 pp_data <- master_data %>%
-  filter(!is.na(PowerPlay))
+  filter(PowerPlay %in% c(1, 2))
 
 # 4. Save the clean data for the next phase
 # We save it as an .rds file because it keeps all our variable types safe.
@@ -138,16 +139,33 @@ plot1 <- pp_master_clean %>%
   theme_minimal()
 print(plot1)
 
-# 3. PLOT 2: At what score differentials? (histogram)
-plot2 <- pp_master_clean %>%
-  distinct(match_id, EndID, score_diff) %>%
-  ggplot(aes(x = score_diff)) +
-  geom_histogram(binwidth = 1, fill = "#2c3e50", color = "white") +
-  scale_x_continuous(breaks = seq(-6, 6, 1)) +
-  labs(title = "Score Differential During Power Plays",
-       subtitle = "Negative = Team is Losing | Positive = Team is Winning",
-       x = "Score Diff (My Score - Opponent)", y = "Count") +
+# 3. PLOT 2: REAL Usage Rate (Normalized by how often the score happens)
+# Step A: Count how many times teams were EVER at these score diffs (Denominator)
+total_situations <- master_data %>%
+  distinct(match_id, EndID, TeamID, score_diff) %>%
+  count(score_diff, name = "total_ends_played")
+
+# Step B: Count how many times they used Power Play (Numerator)
+pp_counts <- pp_master_clean %>%
+  distinct(match_id, EndID, TeamID, score_diff) %>%
+  count(score_diff, name = "pp_count")
+
+# Step C: Plot the Percentage (Rate)
+plot2 <- pp_counts %>%
+  left_join(total_situations, by = "score_diff") %>%
+  mutate(pp_rate = pp_count / total_ends_played) %>%
+  # Filter out rare blowout scores (-6 or +6) to clean up the chart
+  filter(total_ends_played > 20) %>% 
+  ggplot(aes(x = score_diff, y = pp_rate)) +
+  geom_col(fill = "#d62728", color = "white") + # Red for "Action"
+  scale_y_continuous(labels = scales::percent) +
+  scale_x_continuous(breaks = seq(-5, 5, 1)) +
+  labs(title = "When Do Teams Pull the Trigger?",
+       subtitle = "Power Play Usage Rate % by Score Differential",
+       x = "Score Diff (Negative = Losing)", 
+       y = "Usage Rate (%)") +
   theme_minimal()
+
 print(plot2)
 
 # 4. How often do teams with hammer use PP? (should be 100%)

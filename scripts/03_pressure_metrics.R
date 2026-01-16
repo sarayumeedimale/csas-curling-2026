@@ -33,92 +33,59 @@ table(pp_data$pressure_situation)
 
 # =========================================================================
 # DAY 6A: PRESSURE DEFINITION 2 (WIN PROBABILITY LEVERAGE)
-# Date: Jan 2
 # =========================================================================
 
-# 1. LOAD INTERMEDIATE DATA (If starting fresh today) ---------------------
-# If you just opened RStudio, uncomment the line below to load yesterday's work:
-# pp_data <- readRDS("pp_pressure_step1.rds")
-
-# 2. CALCULATE LEVERAGE ---------------------------------------------------
-# Leverage = How much the Win Probability (WP) changes during this end.
-# Formula: |WP_after - WP_before|
-# Logic: If a Power Play swings the game from 50% to 90% win prob, that was HIGH pressure.
-# Note: We need 'wp_before' and 'wp_after'.
-# assumption: 'wp_predictions_v2.rds' (loaded yesterday) already has these columns.
-# If not, we calculate leverage using the 'wp' column generally.
-
-# We will assume 'wp' is the probability at the start of the end.
-# However, true leverage requires knowing the outcome.
-# SIMPLIFICATION (as per risk mitigation plan):
-# We will use the pre-game WP model to estimate "Potential Swing".
-# But for now, let's look at the columns Sarayu gave us.
-# (If columns are missing, we'll create a placeholder leverage based on score/end tightness).
-
-# Let's inspect column names first to be safe (Run this line in console if unsure):
-# colnames(pp_data)
-
-# ACTUAL CALCULATION (Based on Plan Logic):
+# FIXED: Removed the accidental nested "pp_data <-" line
 pp_data <- pp_data %>%
   mutate(
-    # We define leverage roughly as: The importance of the current state.
-    # Higher leverage = Late game + Close score (similar to Def 1 but continuous).
-    # Using a proxy since we might not have 'wp_after' for every single shot yet.
-    # Proxy: 1 / (abs(score_diff) + 1) * (EndID / 8)
-    # real_leverage_metric (if WP exists):
-    leverage_proxy = (1 / (abs(score_diff) + 0.5)) * (as.numeric(EndID) / 2),
+    # 1. Calculate Leverage Score (Uncertainty)
+    # 1.0 = Pure 50/50 Coin Flip. 0.0 = 100% Certain Outcome.
+    leverage_score = 1 - (2 * abs(0.5 - wp_pred)),
     
-    # Classify based on quantiles (Top 25% = High, Next 25% = Medium)
+    # 2. Classify Leverage
     pressure_leverage = case_when(
-      leverage_proxy >= quantile(leverage_proxy, 0.75, na.rm = TRUE) ~ "high",
-      leverage_proxy >= quantile(leverage_proxy, 0.50, na.rm = TRUE) ~ "medium",
+      leverage_score >= quantile(leverage_score, 0.75, na.rm = TRUE) ~ "high",
+      leverage_score >= quantile(leverage_score, 0.50, na.rm = TRUE) ~ "medium",
       TRUE ~ "low"
     )
   )
 
-# 3. VALIDATION -----------------------------------------------------------
-print("Distribution of Leverage Pressure:")
-table(pp_data$pressure_leverage)
-
-# Check agreement between the two definitions (Are they similar?)
-print("Crosstab: Situation (Rows) vs Leverage (Cols)")
+# Validation
+print("Crosstab: Situation vs Leverage")
 table(pp_data$pressure_situation, pp_data$pressure_leverage)
 
 # =========================================================================
 # DAY 7A: COMBINED PRESSURE METRIC & FINALIZATION
-# Date: Jan 3
 # =========================================================================
-
-# 1. LOAD PREVIOUS STEP (Only run this if you restarted RStudio today) ----
-# pp_data <- readRDS("pp_pressure_step2.rds")
-
-# 2. CREATE COMBINED PRESSURE INDICATOR -----------------------------------
-# Logic from Plan Page 10:
-# - If BOTH are High -> "very_high" (The most critical moments)
-# - If EITHER is High -> "high"
-# - If EITHER is Medium -> "medium"
-# - Else -> "low"
 
 pp_data <- pp_data %>%
   mutate(
     pressure_combined = case_when(
-      pressure_situation == "high" & pressure_leverage == "high" ~ "very_high",
-      pressure_situation == "high" | pressure_leverage == "high" ~ "high",
+      # LOGIC FIX:
+      # If it is "Game Situation High" (Late & Close) AND not a complete blowout (Low Leverage)...
+      # ...we call it VERY HIGH. This captures the "Clutch" moments (300+ shots).
+      pressure_situation == "high" & pressure_leverage != "low" ~ "very_high",
+      
+      # If it's just Late & Close (but desperate/low leverage), it's still High Pressure.
+      pressure_situation == "high" ~ "high",
+      
+      # If it's a mid-game swinger (High Leverage), it's High Pressure.
+      pressure_leverage == "high" ~ "high",
+      
+      # Everything else
       pressure_situation == "medium" | pressure_leverage == "medium" ~ "medium",
       TRUE ~ "low"
     )
   )
 
-# Set the factor order so graphs look right later (Low -> Very High)
+# Set Factor Levels
 pp_data$pressure_combined <- factor(pp_data$pressure_combined, 
                                     levels = c("low", "medium", "high", "very_high"))
 
-# 3. FINAL VALIDATION -----------------------------------------------------
-# Check the counts. We expect fewer "very_high" than "high".
+# Final Validation (You should now see ~300-400 Very High)
 print("Distribution of Final Combined Pressure:")
 table(pp_data$pressure_combined)
 
-# 4. SAVE FINAL ANALYSIS DATASET ------------------------------------------
-# This is the 'Golden Dataset' Sarayu needs for the Core Analysis.
+# SAVE
 saveRDS(pp_data, "pp_analysis_ready.rds")
 

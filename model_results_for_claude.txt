@@ -1,0 +1,74 @@
+[1] "========================================="
+[1] "PROJECT: CURLING POWER PLAY ANALYSIS"
+[1] "MODEL SUMMARY OUTPUT"
+[1] "========================================="
+[1] "\n\n========================================="
+[1] "FINAL MODEL (V2) SUMMARY"
+[1] "========================================="
+
+Call:
+glm(formula = won ~ score_diff * has_hammer * ends_remaining, 
+    family = binomial, data = training_data)
+
+Coefficients:
+                                           Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                              -9.643e-01  1.448e-01  -6.660 2.74e-11 ***
+score_diff                                1.283e+00  1.002e-01  12.807  < 2e-16 ***
+has_hammerTRUE                            1.929e+00  2.048e-01   9.418  < 2e-16 ***
+ends_remaining                            8.523e-02  2.519e-02   3.383 0.000717 ***
+score_diff:has_hammerTRUE                -7.688e-15  1.417e-01   0.000 1.000000    
+score_diff:ends_remaining                -9.501e-02  1.979e-02  -4.800 1.58e-06 ***
+has_hammerTRUE:ends_remaining            -1.705e-01  3.563e-02  -4.784 1.71e-06 ***
+score_diff:has_hammerTRUE:ends_remaining  1.260e-15  2.799e-02   0.000 1.000000    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 7219.8  on 5207  degrees of freedom
+Residual deviance: 5019.8  on 5200  degrees of freedom
+AIC: 5035.8
+
+Number of Fisher Scoring iterations: 6
+
+[1] "\n\n========================================="
+[1] "ODDS RATIOS (Effect Sizes)"
+[1] "Interpretable impact of variables on Win Prob"
+[1] "========================================="
+                             (Intercept)                               score_diff 
+                               0.3812340                                3.6089844 
+                          has_hammerTRUE                           ends_remaining 
+                               6.8804468                                1.0889622 
+               score_diff:has_hammerTRUE                score_diff:ends_remaining 
+                               1.0000000                                0.9093617 
+           has_hammerTRUE:ends_remaining score_diff:has_hammerTRUE:ends_remaining 
+                               0.8432850                                1.0000000 
+[1] "\n\n========================================="
+[1] "BASELINE MODEL (V1) SUMMARY"
+[1] "========================================="
+
+Call:
+glm(formula = won ~ score_diff * has_hammer * ends_remaining, 
+    family = binomial, data = training_data)
+
+Coefficients:
+                                           Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                              -9.643e-01  1.448e-01  -6.660 2.74e-11 ***
+score_diff                                1.283e+00  1.002e-01  12.807  < 2e-16 ***
+has_hammerTRUE                            1.929e+00  2.048e-01   9.418  < 2e-16 ***
+ends_remaining                            8.523e-02  2.519e-02   3.383 0.000717 ***
+score_diff:has_hammerTRUE                -7.688e-15  1.417e-01   0.000 1.000000    
+score_diff:ends_remaining                -9.501e-02  1.979e-02  -4.800 1.58e-06 ***
+has_hammerTRUE:ends_remaining            -1.705e-01  3.563e-02  -4.784 1.71e-06 ***
+score_diff:has_hammerTRUE:ends_remaining  1.260e-15  2.799e-02   0.000 1.000000    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 7219.8  on 5207  degrees of freedom
+Residual deviance: 5019.8  on 5200  degrees of freedom
+AIC: 5035.8
+
+Number of Fisher Scoring iterations: 6
+

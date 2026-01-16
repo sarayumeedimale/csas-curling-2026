@@ -1,0 +1,52 @@
+================================================================
+ FINAL PREDICTIVE MODEL SUMMARY
+ Target: Power Play Success (2+ Points)
+================================================================
+
+--- A. MODEL METRICS ---
+# A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          <dbl>   <int>  <dbl> <dbl> <dbl>    <dbl>       <int> <int>
+1          434.     312  -212.  439.  469.     423.         305   313
+
+--- B. COEFFICIENTS (LOG ODDS) ---
+
+Call:
+glm(formula = success ~ shot1 + shot2 + pressure_combined, family = binomial, 
+    data = model_data)
+
+Coefficients:
+                           Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                 -0.4414     0.3155  -1.399   0.1618  
+shot1Guard_Setup            -0.5252     0.2917  -1.800   0.0718 .
+shot1Takeout                -0.4947     1.0504  -0.471   0.6376  
+shot2Guard_Setup             1.2359     0.6205   1.992   0.0464 *
+shot2Takeout                 0.2235     0.2497   0.895   0.3708  
+pressure_combinedmedium      0.4895     0.3397   1.441   0.1496  
+pressure_combinedhigh        0.4469     0.4260   1.049   0.2942  
+pressure_combinedvery_high   0.5370     0.4094   1.312   0.1897  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 433.91  on 312  degrees of freedom
+Residual deviance: 423.23  on 305  degrees of freedom
+AIC: 439.23
+
+Number of Fisher Scoring iterations: 4
+
+
+--- C. ODDS RATIOS (INTERPRETABLE EFFECT SIZES) ---
+Values > 1.0 indicate INCREASED probability of success.
+Values < 1.0 indicate DECREASED probability of success.
+
+                       term estimate p.value   conf.low conf.high significance
+           shot2Guard_Setup    3.442  0.0464 1.09115600 13.191289            *
+ pressure_combinedvery_high    1.711  0.1897 0.77089173  3.858626             
+    pressure_combinedmedium    1.632  0.1496 0.84407572  3.215671             
+      pressure_combinedhigh    1.563  0.2942 0.68109396  3.637992             
+               shot2Takeout    1.250  0.3708 0.76668646  2.043626             
+                (Intercept)    0.643  0.1618 0.34115745  1.183978             
+               shot1Takeout    0.610  0.6376 0.06645645  5.461099             
+           shot1Guard_Setup    0.591  0.0718 0.33077972  1.042216            .
