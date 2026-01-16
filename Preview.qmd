@@ -96,18 +96,39 @@ Where $\mu$ represents the average points scored per Power Play end. A positive 
 
 To determine the optimal shot selection strategy, we employed a multivariate logistic regression model. The goal was to isolate the marginal effect of specific shot choices while controlling for pressure.
 
-**Model Specification:**\
+**Model Specification:\
+**\
  $$
 \ln\left(\frac{P(Success)}{1-P(Success)}\right) = \beta_0 + \beta_1 S_1 + \beta_2 S_2 + \beta_3 \pi + \beta_4 (S_1 \times \pi) + \epsilon
 $$
 
-**Where:**
+**Dependent Variable**
 
--   **Dependent Variable (**$P(Success)$): The probability of scoring $\ge 2$ points (the strategic goal of a Power Play).
--   $S_1$: Shot 1 Type (Categorical: Guard vs. Draw vs. Takeout).
--   $S_2$: Shot 2 Type (Categorical).
--   $\pi$: Pressure Level (Ordinal).
--   $S_1 \times \pi$: Interaction term to determine if specific shots perform better or worse as pressure increases.
+-   $P(Success)$: The probability of scoring\
+            ≥2\\ge 2≥2
+
+-        \
+    points (the strategic goal of a Power Play).
+
+**S1S_1S1​**
+
+-   **\
+    ** : Shot 1 Type (Categorical: Guard vs. Draw vs. Takeout).
+
+**S2S_2S2​**
+
+-   **\
+    ** : Shot 2 Type (Categorical).
+
+**π\\piπ**
+
+-   **\
+    ** : Pressure Level (Ordinal).
+
+**S1×πS_1 \\times \\piS1​×π**
+
+-   **\
+    ** : Interaction term to determine if specific shots perform better or worse as pressure increases.
 
 **Modeling Caveat:** While we controlled for shot type and game state, "Player Skill" remains an omitted variable due to the limitations of anonymized aggregated data. Therefore, results should be interpreted as strategic tendencies rather than isolated physics simulations.
 
@@ -203,7 +224,7 @@ The data reveals a weak correlation ($r= 0.17$) between scoring under pressure a
 
 -   **The "False Clutch" (e.g., Italy):** Italy (ITA) ranks **2nd** in our model with a PPCS of **+1.75**, indicating they are elite at generating points under pressure. However, their position in quadrants reveals a low WPA. This suggests a "stat-padding" effect: Italy executes difficult shots effectively, but often in "garbage time" which refers to low-leverage moments where the points do not significantly alter the match outcome.
 
--   **The "True Clutch" (Efficient Scoring):** In contrast, Canada (CAN) ranks **3rd** in PPCS at **+1.33**. While their raw scoring output under pressure is lower than Italy's, their WPA is significantly higher (appearing in the top-right "True Clutch" quadrant). This indicates high *efficiency*: Canada’s points are scored in the pivotal moments that flip loss probabilities into win probabilities.
+-   **The "True Clutch" (e.g., Candada):** In contrast, Canada (CAN) ranks **3rd** in PPCS at **+1.33**. While their raw scoring output under pressure is lower than Italy's, their WPA is significantly higher (appearing in the top-right "True Clutch" quadrant). This indicates high *efficiency*: Canada’s points are scored in the pivotal moments that flip loss probabilities into win probabilities.
 
 -   **Tactical Opportunity:** For teams like New Zealand (NZL), who show very high pressure scoring but lower impact than Canada, the goal is to shift those successful shots into more impactful game scenarios.
 
